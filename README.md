@@ -16,12 +16,15 @@ Die Versorgung der Schweiz mit Lebensmitteln muss zu jedem Zeitpunkt sichergeste
 
 # Lösung
 
-## Daten- und Informationsportal für Monitoring der Nahrungsmittelsicherheit
+## Ein Daten- und Informationsportal für Monitoring der Nahrungsmittelsicherheit
 
-Ein Daten- und Informationsportal mit : 
-- Einem Dashboard welches eine zentrale und gesamtheitliche Übersicht bietet (aus versch. Quellen)
-- Einen Bereich für ad hoc Analysen (Blog-Format)
-  
-- Ergänzend : Rückmeldungen der Expertinnen via Survey erheben / in Dashboard einbauen (Datensammlung)
+Genauso wie für die Energieversorgung (https://energiedashboard.admin.ch/dashboard) soll ein Daten- und Informationsportal für die Nahrungsmittelversorgung erstellt werden. 
+
+Dieses soll folgende Elemente umfassen: 
+
+- Ein Dashboard welches eine für alle Lebensmittelkategorien Produktions- und Importmengen wiederspiegelt und gesamtheitliche Übersicht bietet (aus versch. Quellen)
+- Einen Bereich für ad hoc Analysen und methodischen Erläuterungen (Blog-Format)
+- Rückmeldungen der Expertinnen via Survey erheben / in Dashboard einbauen (Datensammlung)
 
 ## Lösungsansatz & Skripts & Datenquellen
+Als MVP 
