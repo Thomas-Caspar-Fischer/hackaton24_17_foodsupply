@@ -13,26 +13,23 @@ date: 2024-03-15
 author: [Corinne Straub, Damian Oswald]
 ---
 
+![](image.webp)
+
+# Schreiben einer SPARQL-Abfrage
 
 Zuallererst werden die Daten direkt über [agrarmarktdaten.ch](https://www.agrarmarktdaten.ch/) eingezogen. Die Daten sind als *Linked Open Data* verfügbar und können dementsprechend über eine SPARQL-Abfrage gezielt verknüpft und heruntergeladen werden.
 
 ```{r}
-# packages ----------------------------------------------------------------
-
-library(httr)
-library(readr)
+#| message: false
+library(XML) #<1>
+library(lubridate)
+library(tidyverse)
 library(ggplot2)
-library("tidyverse")
-library("XML")
+library(readr)
+library(httr) #<1>
 
-# proxy_url <- "http://proxy-bvcol.admin.ch:8080"
-# httr::set_config(httr::use_proxy(proxy_url))
-
-
-# SPARQL query to LINDAS --------------------------------------------------
-
-sparql_string <- paste0('
-  PREFIX cube: <https://cube.link/>
+sparql_string <- paste0(#<2>
+ "PREFIX cube: <https://cube.link/>
   PREFIX sh: <http://www.w3.org/ns/shacl#>
   PREFIX schema: <http://schema.org/>
   PREFIX time: <http://www.w3.org/2006/time#>
@@ -56,10 +53,7 @@ sparql_string <- paste0('
   ?date time:year ?year.
     OPTIONAL { ?date time:month ?month. }
   }
-                        ')
-
-print(sparql_string)
-
+                        ")#<2>
 query <- POST("https://ld.admin.ch/query",
               add_headers("Accept" = "text/csv"),
               content_type("application/x-www-form-urlencoded; charset=UTF-8"),
@@ -67,3 +61,44 @@ query <- POST("https://ld.admin.ch/query",
 
 data <- content(query, encoding = "UTF-8")
 ```
+1. Die nötigen R packages werden an den Suchpfad angeheftet.
+2. Hier wird eine SPARQL Abfrage geschrieben.
+
+## Umrechnen der Daten
+
+In einem ersten Schritt müssen die Daten für die Analyse vorbereitet werden. Dazu sehen wir sie uns in ihrer Grundstruktur an.
+
+...
+
+### Verschiedene Monate haben verschiedene Anzahl Tage
+
+```{r}
+with(data, paste(year, month, "01", sep = "-")) |>
+    as.Date() |>
+    days_in_month() ->
+    days_in_month
+days_in_month |> head(20)
+```
+
+```{r}
+data[,"milkPerDay"] <- data[,"measure"]/days_in_month * 0.001
+TS <- ts(data$milkPerDay, start = 2001, frequency = 12)
+y <- TS - decompose(TS)$seasonal
+```
+
+```{r}
+#| label: fig-time-series
+#| fig-format: svg
+#| fig-cap: Die täglich produzierte Milchmenge über die Jahre (schwarz) sowie die saisonal korrigierte Milchmenge.
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: 100%
+#| echo: false
+par(mar = c(4,4,0,0)+0.1)
+plot(TS, ylab = "Täglich produzierte Milchmenge [t]", xlab = "Zeit")
+grid()
+lines(y, col = "red", lwd = 2)
+```
+
+
+
