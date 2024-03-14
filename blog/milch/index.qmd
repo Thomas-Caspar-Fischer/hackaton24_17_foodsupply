@@ -1,0 +1,69 @@
+---
+title: |
+    Die durstige Kuh: Wie Produktionsschocks im Schweizer Milchmarkt gefunden werden
+description: |
+    Entwicklung eines mathematischen Modells zur Erkennung von extremen Änderungen der Milchproduktion
+abstract: |
+    In diesem hypothetischen Blogbeitrag untersuchen wir einen innovativen Algorithmus, der in der Lage ist, Schocks in der Schweizer Milchproduktion zu identifizieren. Angesichts der zentralen Rolle, die die Milchwirtschaft in der Schweiz spielt, bietet dieser Algorithmus landwirtschaftlichen Betrieben und politischen Entscheidungsträgern ein mächtiges Werkzeug, um auf unvorhergesehene Veränderungen im Milchmarkt reagieren zu können. Durch die Analyse historischer Daten und aktueller Trends kann der Algorithmus frühzeitig Warnsignale erkennen, die auf potenzielle Störungen hinweisen. Dieser Beitrag beleuchtet die Funktionsweise des Algorithmus, seine praktische Anwendung und die möglichen Auswirkungen auf die Schweizer Landwirtschaft. Begleitet wird der Beitrag von einer humorvollen Illustration, die eine Schweizer Milchkuh zeigt, die scheinbar keine Milch mehr produzieren kann – eine spielerische Anspielung auf die ernsten Herausforderungen, die Schocks in der Milchproduktion darstellen können.
+image: image.webp
+categories:
+  - Milch
+  - Hitze
+date: 2024-03-15
+author: [Corinne Straub, Damian Oswald]
+---
+
+
+Zuallererst werden die Daten direkt über [agrarmarktdaten.ch](https://www.agrarmarktdaten.ch/) eingezogen. Die Daten sind als *Linked Open Data* verfügbar und können dementsprechend über eine SPARQL-Abfrage gezielt verknüpft und heruntergeladen werden.
+
+```{r}
+# packages ----------------------------------------------------------------
+
+library(httr)
+library(readr)
+library(ggplot2)
+library("tidyverse")
+library("XML")
+
+# proxy_url <- "http://proxy-bvcol.admin.ch:8080"
+# httr::set_config(httr::use_proxy(proxy_url))
+
+
+# SPARQL query to LINDAS --------------------------------------------------
+
+sparql_string <- paste0('
+  PREFIX cube: <https://cube.link/>
+  PREFIX sh: <http://www.w3.org/ns/shacl#>
+  PREFIX schema: <http://schema.org/>
+  PREFIX time: <http://www.w3.org/2006/time#>
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+  SELECT DISTINCT
+                 ?measure
+    ?year ?month
+  WHERE {
+    GRAPH <https://lindas.admin.ch/foag/agricultural-market-data> {
+      VALUES(?product) {
+(<https://agriculture.ld.admin.ch/foag/product/4>) }
+
+      <https://agriculture.ld.admin.ch/foag/cube/MilkDairyProducts/Production_Quantity_Month> cube:observationSet ?observationSet .
+      ?observationSet cube:observation ?observation .
+    ?observation <https://agriculture.ld.admin.ch/foag/dimension/date> ?date .
+    ?observation <https://agriculture.ld.admin.ch/foag/dimension/product> ?product .
+    ?observation <https://agriculture.ld.admin.ch/foag/measure/quantity> ?measure .
+
+      }
+  ?date time:year ?year.
+    OPTIONAL { ?date time:month ?month. }
+  }
+                        ')
+
+print(sparql_string)
+
+query <- POST("https://ld.admin.ch/query",
+              add_headers("Accept" = "text/csv"),
+              content_type("application/x-www-form-urlencoded; charset=UTF-8"),
+              body = paste("query=", sparql_string, sep = ""))
+
+data <- content(query, encoding = "UTF-8")
+```
