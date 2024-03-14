@@ -32,3 +32,9 @@ Als MVP bauen wir einen Prototypen des Portals für eine ausgewählte Produkteka
 
 ### Datenquellen : 
 
+- Milchproduktion via SPARQL : https://www.agrarmarktdaten.ch/
+- Import von Milch ... :
+- Weitere
+
+
+
