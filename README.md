@@ -1,4 +1,4 @@
-# :wave:  hackaton24_17_foodsupply
+# :wave:  Datenbasiert die Ernähnrungssicherheit gewährleisten
 
 Repository for the GovTech Hackaton 2024 - "Vernetzung von Daten im Ernährungsbereich"
 
