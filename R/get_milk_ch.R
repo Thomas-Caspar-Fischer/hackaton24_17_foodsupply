@@ -54,3 +54,29 @@ query <- POST("https://ld.admin.ch/query",
 
 data <- content(query, encoding = "UTF-8")
 
+days_in_month <- lubridate::days_in_month(as.Date(with(data, paste(year, month, "01", sep = "-"))))
+
+data[,"milkPerDay"] <- data[,"measure"]/days_in_month * 0.001
+
+TS <- ts(data$milkPerDay, start = 2001, frequency = 12)
+
+y <- TS - decompose(TS)$seasonal
+plot(TS, ylab = "Täglich produzierte Milchmenge [t]", xlab = "Zeit")
+grid()
+lines(y, col = "red", lwd = 2)
+
+layout(mat = matrix(c(1,1,2), ncol = 3))
+plot(diff(y)/mean(y)*100, ylab = "Veränderung der Milchproduktion im Vergleich zum Vormonat [%]", xlab = "Zeit")
+grid()
+
+z <- scale(diff(y))
+data[,"z"] <- c(NA, z)
+hist(z, col = "transparent", probability = TRUE, xlim = c(-4,4), main = "", ylab = "Dichte")
+x <- seq(-5,5,l=1000)
+lines(x, dnorm(x))
+x2 <- x[x< -1.96]
+y2 <- dnorm(x)[x< -1.96]
+polygon(x = c(x2, rev(x2)), y = c(rep(0,length(x2)), rev(y2)), col = adjustcolor("red", 0.5))
+
+data[,"extreme"] <- c(NA, z< -1.96)
+
