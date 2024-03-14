@@ -14,9 +14,12 @@ https://hack.opendata.ch/project/1097
 
 # Lösung
 
-## Dashboard für Monitoring der Nahrungsmittelsicherheit
+## Daten und Informationsportal für Monitoring der Nahrungsmittelsicherheit
 
-- Ein Dashboard welches eine zentrale und gesamtheitliche Übersicht bietet (aus versch. Quellen)
+Ein Daten- und Informationsportal mit : 
+- Einem Dashboard welches eine zentrale und gesamtheitliche Übersicht bietet (aus versch. Quellen)
+- Einen Bereich für ad hoc Analysen (Blog-Format)
+  
 - Ergänzend : Rückmeldungen der Expertinnen via Survey erheben / in Dashboard einbauen (Datensammlung)
-- 
+
 ## Lösungsansatz & Skripts & Datenquellen
