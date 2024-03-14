@@ -1,2 +1,6 @@
 /.quarto/
+<<<<<<< HEAD
 .Rproj.user
+=======
+.DS_Store
+>>>>>>> 6bc071f8b56effd1e007d8555b36bc5e9f2bb01e
