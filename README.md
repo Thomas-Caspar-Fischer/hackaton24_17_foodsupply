@@ -7,7 +7,9 @@ https://hack.opendata.ch/project/1097
 # Team
 - **Thomas C. Fischer** – Data Scientist, Statistisches Amt des Kantons Zürich 
 - **Cyra Schmandt** – BWL (Organisatorin der Challenge)
-- ....
+- **Corinne Straub** – BFS
+- **Damian Oswald** – BLW
+- **Thomas Lo Russo** – Kanton Zürich
 
 # Herausforderung / Ausgangslage
 - Um die Ernährungssicherheit zu gewährleitsen benötigt. ...
