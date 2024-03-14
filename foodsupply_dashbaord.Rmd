@@ -31,6 +31,9 @@ library(ggplot2)
 library("tidyverse")
 library("XML")
 library("bslib")
+library(forecast) 
+library(plotly)
+# library("bsicons")
 ```
 
 
@@ -84,12 +87,30 @@ data <- content(query, encoding = "UTF-8")
 
 ```
 
+
+```{r}
+# Data Transformation 
+days_in_month <- lubridate::days_in_month(as.Date(with(data, paste(year, month, "01", sep = "-"))))
+data[,"milkPerDay"] <- data[,"measure"]/days_in_month * 0.001
+TS <- ts(data$milkPerDay, start = 2001, frequency = 12)
+y <- TS - decompose(TS)$seasonal
+z <- scale(diff(y))
+data[,"z"] <- c(NA, z)
+x <- seq(-5,5,l=1000)
+x2 <- x[x< -1.96]
+y2 <- dnorm(x)[x< -1.96]
+data[,"extreme"] <- c(NA, z< -1.96)
+
+prod_data_latest <- data %>% tail(1)
+```
+
+
 ```{r}
 
 # Funktion für Farbgebung der Valueboxes 
-color_fun <-     function(value){ if (value < 0) {
-      "red"
-    } else if (value >= 30 & value < 70) {
+color_fun <-     function(value){ if (value < qnorm(0.01)) {
+      return("red")
+    } else if (value < qnorm(0.1)) {
       return("orange")
     } else {
       return("#216869")
@@ -102,11 +123,11 @@ color_fun <-     function(value){ if (value < 0) {
 
 # Funktion für Pfeil
 arrow_fun <-     function(value){ if (value < 0) {
-      "arrow-down"
+      "fa-arrow-down"
     } else if (value >= 30 & value < 70) {
-      return("arrows-h")
+      return("fa-arrows-h")
     } else {
-      return("arrow-up")
+      return("fa-arrow-up")
     }}
     
 ```
@@ -117,17 +138,26 @@ Gauges {data-width=200}
 ### Milchproduktion
 
 ```{r}
-renderValueBox({
-    value <- runif(1, min = -100, max = 100) # Generate a random value between 0 and 100
+
+# r <- reactiveVal(10)
+# renderValueBox({
+    # value <- runif(1, min = -100, max = 100) # Generate a random
+value <- prod_data_latest$milkPerDay
+z <- prod_data_latest$z
+  
     # Determine the color based on the value
     # Create the value box with the determined color
+# Beschrieb einfügen
     valueBox(
       formatC(value, format = "f", digits = 2), # Display the value formatted to 2 decimal places
       # subtitle = "Random Value",
-      color = color_fun(value),
-      showcase = bs_icon("music-note-beamed"),
+      color = color_fun(z),
+      icon=arrow_fun(z)
+    # ICON funktioniert nicht?
     )
-  })
+  # })
+    
+    ?valueBox
 
 # shiny::icon("arrow-down")
 ```
@@ -153,13 +183,46 @@ renderValueBox({
 
 ```
 
-Column {data-width=650}
+Row {data-width=1650}
 -----------------------------------------------------------------------
 
-### Entwicklung Produktion
+### Täglich produzierte Milchmenge (in Tonnen)
 
-```{r}
+```{r out.width="200%"}
+# TS <- ts(data$milkPerDay, start = 2001, frequency = 12)
+# y <- TS - decompose(TS)$seasonal
+# plot(TS, ylab = "Täglich produzierte Milchmenge [t]", xlab = "Zeit")
+# grid()
+# lines(y, col = "red", lwd = 2)
 
+
+TS <- ts(data$milkPerDay, start = 2001, frequency = 12)
+
+# Decompose the time series
+decomposed_TS <- decompose(TS)
+
+# Seasonally adjusted series
+y <- TS - decomposed_TS$seasonal
+
+# Convert to data.frame for ggplot
+ts_data <- data.frame(
+  Datum = time(TS),
+  `Milch in Tonnen` = as.numeric(TS),
+  `Milch in Tonnen (saisonbereinigt)` = as.numeric(y)
+)
+
+# Plot with ggplot
+gg1 <- ggplot(ts_data, aes(x = Date)) +
+  geom_line(aes(y =  `Milch in Tonnen`), colour = "#216869") +
+  geom_line(aes(y = `Milch in Tonnen (saisonbereinigt)`), colour = "red", size = 1) +
+  labs(x = "", y = "Tonnen") +
+  ggtitle("") +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+
+
+ggplotly(gg1)
 ```
 
 Column {data-width=350}
