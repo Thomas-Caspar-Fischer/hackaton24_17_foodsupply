@@ -1,6 +1,10 @@
+---
+title: Das Schweizer Milchproduktions-Dashboard
+subtitle: Dieses Dashboard bezieht automatisiert Daten zur Schweizer Milchproduktion von LINDAS und generiert damit ansprechende und interaktive Grafiken.
+---
 
 :::{.column-screen-inset}
 ```{=html}
- <iframe id="example1" src="https://gallery.shinyapps.io/goog-trend-index/" style="border: none; width: 100%; height: 1200px" frameborder="0"></iframe>
+<iframe id="scaled-frame" width = 100% height = 500% frameborder="no" src="https://tlorusso.shinyapps.io/foodsupply_dashbaord/"> </iframe>
 ```
 :::
