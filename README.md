@@ -2,7 +2,7 @@
 
 Repository for the GovTech Hackaton 2024 - "Vernetzung von Daten im Ernährungsbereich"
 
-https://hack.opendata.ch/project/1097
+Challenge-Landing Page ➡️ https://hack.opendata.ch/project/1097
 
 # Team
 - **Thomas C. Fischer** – Data Scientist, Statistisches Amt des Kantons Zürich 
