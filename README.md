@@ -28,4 +28,7 @@ Dieses soll folgende Elemente umfassen:
 - Einschätzungen von Expertinnen aus der Wirtschaft via Survey erheben / in Dashboard einbauen (Datensammlung)
 
 ## Lösungsansatz & Skripts & Datenquellen
-Als ersten Schritt 
+Als MVP bauen wir einen Prototypen des Portals für eine ausgewählte Produktekategorie (Milch 🥛). 
+
+### Datenquellen : 
+
