@@ -16,7 +16,8 @@ Die Versorgung der Schweiz mit Lebensmitteln muss zu jedem Zeitpunkt sichergeste
 
 # Lösung
 
-## Ein Daten- und Informationsportal für Monitoring der Nahrungsmittelsicherheit
+## Ein Daten- und Informationsportal für Monitoring der Nahrungsmittelsicherheit 
+*(powered by __Open Data * Open Source * Open Science__)*
 
 Genauso wie für die Energieversorgung (https://energiedashboard.admin.ch/dashboard) soll ein Daten- und Informationsportal für die Nahrungsmittelversorgung erstellt werden. 
 
@@ -27,4 +28,4 @@ Dieses soll folgende Elemente umfassen:
 - Einschätzungen von Expertinnen aus der Wirtschaft via Survey erheben / in Dashboard einbauen (Datensammlung)
 
 ## Lösungsansatz & Skripts & Datenquellen
-Als MVP 
+Als ersten Schritt 
