@@ -12,7 +12,7 @@ https://hack.opendata.ch/project/1097
 - **Thomas Lo Russo** – Kanton Zürich
 
 # Herausforderung / Ausgangslage
-- Um die Ernährungssicherheit zu gewährleitsen benötigt. ...
+- Die Versorgung der Schweiz mit Lebensmitteln sollte zu jedem Zeitpunkt sichergestellt sein. Dafür braucht es eine ständige Beobachtung der aktuellen Lage und sofortige Information bei einer Störung. Die Hinweise von verschiedenen nationalen und internationalen Datenbanken sollten gemeinsam, einfach bedienbar und verständlich dargestellt werden. 
 
 # Lösung
 
