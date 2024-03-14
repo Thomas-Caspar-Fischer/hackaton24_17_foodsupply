@@ -1,0 +1,14 @@
+---
+title: |
+    Das Schweizer Schokoladen-Dilemma: Klimawandel und Kakao
+description: |
+    Analyse, wie Schwankungen in der Schweizer Schokoladenproduktion Einblicke in den globalen Klimawandel geben.
+abstract: |
+    In dieser fantasievollen Erzählung begeben sich ein Team von Klimawissenschaftlern und Chocolatiers auf eine Studie, um die Beziehung zwischen der Schweizer Schokoladenausgabe und globalen Klimamustern zu untersuchen. Sie schlagen humorvoll vor, dass die Konsistenz der Schokoladenschmelzpunkte und die Qualität der Schweizer Schokolade als köstlicher, jedoch unkonventioneller Indikator für den Klimawandel dienen können, was eine süße Perspektive auf die Umweltforschung bietet.
+image: image.webp
+categories:
+  - Kakao
+  - Klimawandel
+date: 2024-01-05
+author: Cyra Schmandt
+---

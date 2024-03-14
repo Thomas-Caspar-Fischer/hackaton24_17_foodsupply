@@ -3,18 +3,26 @@ project:
   output-dir: docs
 
 website:
-  title: Food Supply
+  title: Swiss Food Supply
   site-url: https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply
   navbar:
+    logo: resources/logo.svg
+    background: dark
     left:
       - href: index.qmd
         text: Home
-      - href: about.qmd
-        text: About
       - href: dashboard.qmd
         text: Dashboard
       - href: blog.qmd
         text: Blog
+  page-footer:
+    border: false
+    left: © 2024, Bundesamt für wirtschaftliche Landesversorgung BWL
+    right: 
+       - icon: github
+         href: https://github.com/Thomas-Caspar-Fischer/hackaton24_17_foodsupply
+       - icon: envelope-fill
+         href: mailto:damian.oswald@protonmail.com
 
 format:
   html:
@@ -22,5 +30,4 @@ format:
     css: styles.css
     toc: true
 
-
-
+lang: de

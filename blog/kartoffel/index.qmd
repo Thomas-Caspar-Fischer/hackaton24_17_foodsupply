@@ -1,0 +1,14 @@
+---
+title: |
+    Das alpine Kartoffel-Wunder: Höheneffekte auf die Kochgeschwindigkeit
+description: |
+    Eingehende Untersuchung der überraschenden Entdeckung, dass in den Schweizer Alpen angebaute Kartoffeln schneller kochen.
+abstract: |
+    Diese Geschichte führt die Leser auf eine absurde wissenschaftliche Reise, um zu entdecken, warum in den Schweizer Alpen angebaute Kartoffeln deutlich schneller kochen als solche, die in niedrigeren Höhen gewachsen sind. Forscher spekulieren, dass die Kombination aus alpinem Luftdruck und kosmischer Strahlung die molekulare Struktur dieser Kartoffeln verbessern könnte und schlagen einen humorvollen, aber aufschlussreichen Blick darauf vor, wie geografische Faktoren die Nahrungsmittelautarkie beeinflussen können.
+image: image.webp
+categories:
+  - Rindvieh
+  - Milch
+date: 2023-12-18
+author: [Thomas C. Fischer, ]
+---

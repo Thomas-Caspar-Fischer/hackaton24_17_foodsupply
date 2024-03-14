@@ -1,0 +1,14 @@
+---
+title: |
+    Das Schweizer Kuh-Paradoxon: Rinder-Verhalten und Kornkreise
+description: |
+    Aufdeckung der mysteriösen Auswirkungen von Weideverhaltensmustern der Kühe auf die landwirtschaftliche Produktion der Schweiz.
+abstract: |
+    In einer absurden Erkundung des Rinderverhaltens stellt diese Geschichte eine scheinwissenschaftliche Analyse darüber vor, wie die Weideverhaltensmuster von Schweizer Kühen die landwirtschaftliche Produktion des Landes beeinflussen könnten. Mit Satellitenbildern und komplexen Algorithmen behaupten Forscher, eine bizarre Korrelation zwischen den von Kühen auf Feldern geformten Formen und dem darauffolgenden Ertrag von Kulturen entdeckt zu haben, was darauf hindeutet, dass von Kühen gemachte "Kornkreise" der Schlüssel zur Vorhersage landwirtschaftlichen Erfolgs sein könnten.
+image: image.webp
+categories:
+  - Rindvieh
+  - Milch
+date: 2024-02-12
+author: [Damian Oswald, Thomas Lo Russo]
+---

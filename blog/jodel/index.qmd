@@ -1,0 +1,13 @@
+---
+title: |
+    Jodel-Ay-Hee-Hoo: Das akustische Geheimnis für gedeihende Schweizer Weinberge
+description: |
+    Erforschung der Theorie, dass traditionelles Schweizer Jodeln zum überlegenen Wachstum von Weinbergen in der Schweiz beiträgt.
+abstract: |
+    Diese scherzhafte Geschichte führt die Leser zu einer Gruppe von Schweizer Weinbauern, die glauben, dass das Geheimnis ihrer international anerkannten Weine in der alten Kunst des Jodelns liegt. Laut ihrer "Forschung" zeigen Weinberge, die regelmäßigen Jodel-Sitzungen ausgesetzt sind, nicht nur einen erhöhten Traubenertrag, sondern auch eine verbesserte Qualität, was auf eine klangbasierte Methode zur Steigerung der Selbstversorgung der Schweiz mit Wein hindeutet.
+image: image.webp
+categories:
+  - Wein
+date: 2024-03-05
+author: [Corinne Straub, Thomas Lo Russo]
+---

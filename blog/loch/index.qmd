@@ -1,0 +1,14 @@
+---
+title: |
+    Das grosse Schweizer Käseloch-Mysterium: Ein Milchprodukt-Dilemma
+description: |
+    Untersuchung des Zusammenhangs zwischen der Größe der Löcher im Schweizer Käse und der Selbstversorgung des Landes mit Milchprodukten.
+abstract: |
+    Diese Geschichte taucht ein in die eigenartige Welt des Schweizer Käses, wo Forscher eine bahnbrechende Studie begonnen haben, um zu entdecken, ob es einen direkten Zusammenhang zwischen der Größe der Löcher im Emmentaler Käse und der Effizienz der Schweizer Milchwirtschaft gibt. Durch die Analyse von Daten über Jahre der Käseproduktion und Milcherträge legt die Studie humorvoll nahe, dass größere Käselöcher auf einen Überschuss an Milchproduktion hindeuten könnten, was zu einem unerwarteten Indikator für die Nahrungsmittelautarkie der Schweiz führt.
+image: image.webp
+categories:
+  - Käse
+  - Milch
+date: 2024-03-14
+author: [Cyra Schmandt, Corinne Straub, Damian Oswald]
+---

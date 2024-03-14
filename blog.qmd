@@ -1,11 +1,13 @@
 ---
-title: Blog
+title: Ernährungssicherheits-Blog
+subtitle: Auf diesem Blog werden regelmässig statistische Untersuchungen zu Fragen der Schweizer Landesversorgung publiziert. Sämtlicher Quellcode sowie die Daten zu jeweiligen Untersuchungen ist öffentlich zugänglich.
 listing:
     contents: blog
     type: grid
     categories: true
-    feed: true
     sort:
      - date desc
      - title
+    fields: [image, date, title, reading-time]
+date-format: full
 ---

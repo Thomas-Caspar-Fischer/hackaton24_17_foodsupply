@@ -2,6 +2,11 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/blog/loch/index.html",
+      "/blog/jodel/index.html",
+      "/blog/kornkreise/index.html",
+      "/blog/schokolade/index.html",
+      "/blog/kartoffel/index.html",
       "/blog/test/index.html"
     ]
   }

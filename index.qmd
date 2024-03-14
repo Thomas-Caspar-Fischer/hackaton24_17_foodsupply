@@ -2,10 +2,9 @@
 toc: false
 ---
 
-# Welcome to food supply
+# Herzlich Willkommen auf der Informations-Website zur Schweizer Ernährungssicherheit!
 
-### An open-source publishing site for swiss food supply
+### Hier finden Sie *Open-Source*, *Open-Data* und *Open-Science*-Informationen bezüglich dem Zustand der Schweizer Ernährungssicherheit
 
-- List what this website can do
-
-### Analyze. Share. Reproduce.
+- Ein [Dashboard](dashboard.html) zeigt die aktuelle Situation der Schweizer Landesversorgung.
+- In unserem [Ernährungssicherheits-Blog](blog.html) finden Sie alle möglichen interessanten Analysen.
