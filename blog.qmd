@@ -1,0 +1,11 @@
+---
+title: Blog
+listing:
+    contents: blog
+    type: grid
+    categories: true
+    feed: true
+    sort:
+     - date desc
+     - title
+---

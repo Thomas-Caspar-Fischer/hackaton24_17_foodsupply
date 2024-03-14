@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: Food Supply
+  site-url: https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: dashboard.qmd
+        text: Dashboard
+      - href: blog.qmd
+        text: Blog
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+
