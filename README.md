@@ -6,10 +6,10 @@ Challenge-Landing Page ➡️ https://hack.opendata.ch/project/1097
 
 # Team
 - **Thomas C. Fischer** – Data Scientist, Statistisches Amt des Kantons Zürich 
-- **Cyra Schmandt** – BWL (Organisatorin der Challenge)
-- **Corinne Straub** – BFS
-- **Damian Oswald** – BLW
-- **Thomas Lo Russo** – Kanton Zürich
+- **Cyra Schmandt** – Bundesamt für wirtschaftliche Landesversorgung (Organisatorin der Challenge)
+- **Corinne Straub** – Bundesamt für Statistik (BFS)
+- **Damian Oswald** – Data Scientist, Bundesamt für Landwirtschaft (BLW)
+- **Thomas Lo Russo** – Abteilung Data, Kanton Zürich
 
 # Herausforderung / Ausgangslage
 Die Versorgung der Schweiz mit Lebensmitteln muss zu jedem Zeitpunkt sichergestellt werden. Aufgrund der aktuellen Weltlage und der Schocks der jüngsten Vergangenheit (Pandemie, Hitze- und Dürreperioden, Kriege) bedarf es dafür eine ständige Beobachtung der Nahrungsmittelproduktion wie auch der Lieferketten. Nur so kann frühzeitig auf Engpässe reagiert werden. Dafür benötigt das Bundesamt für wirtschaftliche Landesversorgung alle verfügbaren Informationen und Daten aus allen möglichen Quellen.
