@@ -30,12 +30,12 @@ library(readr)
 library(ggplot2)
 library("tidyverse")
 library("XML")
+library("bslib")
 ```
 
 
-
-```{r}
-# Data preparation 
+```{r echo=FALSE, warnings=FALSE}
+# Data Query Milch-Daten
 rm(list=ls())
 
 # packages ------------------------------------------------------------
@@ -73,7 +73,7 @@ sparql_string <- paste0('
   }
                         ')
 
-print(sparql_string)
+# print(sparql_string)
 
 query <- POST("https://ld.admin.ch/query",
               add_headers("Accept" = "text/csv"),
@@ -84,27 +84,56 @@ data <- content(query, encoding = "UTF-8")
 
 ```
 
-
-
-Gauges {data-width=200}
--------------------------------------
-
-### Produktion Inland
-
 ```{r}
 
 # Funktion für Farbgebung der Valueboxes 
 color_fun <-     function(value){ if (value < 0) {
       "red"
     } else if (value >= 30 & value < 70) {
-      return("yellow")
+      return("orange")
     } else {
       return("#216869")
     }}
     
 ```
 
-### Selbstversorgungsgrad XY
+
+```{r}
+
+# Funktion für Pfeil
+arrow_fun <-     function(value){ if (value < 0) {
+      "arrow-down"
+    } else if (value >= 30 & value < 70) {
+      return("arrows-h")
+    } else {
+      return("arrow-up")
+    }}
+    
+```
+
+Gauges {data-width=200}
+-------------------------------------
+
+### Milchproduktion
+
+```{r}
+renderValueBox({
+    value <- runif(1, min = -100, max = 100) # Generate a random value between 0 and 100
+    # Determine the color based on the value
+    # Create the value box with the determined color
+    valueBox(
+      formatC(value, format = "f", digits = 2), # Display the value formatted to 2 decimal places
+      # subtitle = "Random Value",
+      color = color_fun(value),
+      showcase = bs_icon("music-note-beamed"),
+    )
+  })
+
+# shiny::icon("arrow-down")
+```
+
+### Milchimport 
+
 ```{r}
 renderValueBox({
     value <- runif(1, min = -100, max = 100) # Generate a random value between 0 and 100
@@ -121,37 +150,13 @@ renderValueBox({
 ### Selbstversorgungsgrad XY
 
 ```{r}
-renderGauge({
-  gauge(
-    3.4, min = 0, max = 5, 
-    sectors = gaugeSectors(
-      danger = c(1, 2),
-      warning = c(3, 4),
-      success = c(5, 5)
-    )
-  )
-})
-```
 
-### Selbstversorgungsgrad XY
-
-```{r}
-renderGauge({
-  gauge(
-    7, min = 0, max = 10, 
-    sectors = gaugeSectors(
-      danger = c(7, 10),
-      warning = c(3, 7),
-      success = c(1, 2)
-    )
-  )
-})
 ```
 
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
+### Entwicklung Produktion
 
 ```{r}
 
@@ -160,13 +165,7 @@ Column {data-width=650}
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
-
-```{r}
-
-```
-
-### Chart C
+### Entwicklung Import
 
 ```{r}
 
