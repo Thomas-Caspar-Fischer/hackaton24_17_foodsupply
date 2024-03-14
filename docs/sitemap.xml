@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/blog.html</loc>
-    <lastmod>2024-03-14T13:36:40.963Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/blog/schokolade/index.html</loc>
-    <lastmod>2024-03-14T13:35:47.202Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/blog/kornkreise/index.html</loc>
-    <lastmod>2024-03-14T13:32:23.355Z</lastmod>
+    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/index.html</loc>
+    <lastmod>2024-03-14T12:49:51.090Z</lastmod>
   </url>
   <url>
     <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/blog/test/index.html</loc>
     <lastmod>2024-03-14T13:35:28.101Z</lastmod>
   </url>
   <url>
-    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/dashboard.html</loc>
-    <lastmod>2024-03-14T14:36:17.513Z</lastmod>
+    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/blog/milch/index.html</loc>
+    <lastmod>2024-03-14T16:47:20.857Z</lastmod>
   </url>
   <url>
-    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/index.html</loc>
-    <lastmod>2024-03-14T12:49:51.090Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/blog/kartoffel/index.html</loc>
-    <lastmod>2024-03-14T13:34:26.492Z</lastmod>
+    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/blog/kornkreise/index.html</loc>
+    <lastmod>2024-03-14T13:32:23.355Z</lastmod>
   </url>
   <url>
     <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/blog/jodel/index.html</loc>
     <lastmod>2024-03-14T13:31:45.327Z</lastmod>
   </url>
   <url>
+    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/blog.html</loc>
+    <lastmod>2024-03-14T16:47:16.107Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/blog/kartoffel/index.html</loc>
+    <lastmod>2024-03-14T13:34:26.492Z</lastmod>
+  </url>
+  <url>
     <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/blog/loch/index.html</loc>
-    <lastmod>2024-03-14T13:34:24.228Z</lastmod>
+    <lastmod>2024-03-14T16:27:05.453Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/blog/schokolade/index.html</loc>
+    <lastmod>2024-03-14T13:35:47.202Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Thomas-Caspar-Fischer.github.io/hackaton24_17_foodsupply/dashboard.html</loc>
+    <lastmod>2024-03-14T14:36:17.513Z</lastmod>
   </url>
 </urlset>
