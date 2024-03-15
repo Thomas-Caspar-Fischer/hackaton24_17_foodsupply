@@ -30,3 +30,8 @@
 
 - Das globale Ernährunssystem ist hochkomplex. Die Zahlen aus dem Dashboard können schnell Verwirrung stiften. Damit die Statistiken kontextualisiert werden können, gibt es auf *Swiss Food Supply* auch einen Blog.
 - Darauf werden regelmässig Expertenmeinungen zur aktuellen Lage der Versorgungssicherheit publiziert. *Open-Source*, *Open-Data* und *Open-Science*.
+
+## Ausblick 'Gewappnet für das Unerwartete'
+- Um für das Unerwartete gewappnet zu sein, müssen die Daten ausgeweitet werden: Auf alle Lebensmittel, auf Daten aus Übersee
+- Weitere Vergleiche mit früheren Jahresdurchschnitten
+- Ausbau der Lagebeurteilungen & Analysen von Experten/innen
