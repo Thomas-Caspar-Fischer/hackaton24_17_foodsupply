@@ -1,4 +1,4 @@
-# 🥛🍞🥗Vernetzung von Daten um die Ernährungssicherheit zu gewährleisten
+# 🥛🍞🥗Vernetzung von Daten um die Versorgungssicherheit von Lebensmitteln zu gewährleisten
 
 Repository for the GovTech Hackaton 2024 - "Vernetzung von Daten im Ernährungsbereich"
 
