@@ -104,6 +104,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -162,6 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#verschiedene-monate-haben-verschiedene-anzahl-tage" id="toc-verschiedene-monate-haben-verschiedene-anzahl-tage" class="nav-link" data-scroll-target="#verschiedene-monate-haben-verschiedene-anzahl-tage">Verschiedene Monate haben verschiedene Anzahl Tage</a></li>
   </ul></li>
+  <li><a href="#erkennung-von-schockähnlichen-produktionsveränderungen" id="toc-erkennung-von-schockähnlichen-produktionsveränderungen" class="nav-link" data-scroll-target="#erkennung-von-schockähnlichen-produktionsveränderungen">Erkennung von schockähnlichen Produktionsveränderungen</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -221,6 +251,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Schreiben einer SPARQL-Abfrage</h1>
 <p>Zuallererst werden die Daten direkt über <a href="https://www.agrarmarktdaten.ch/">agrarmarktdaten.ch</a> eingezogen. Die Daten sind als <em>Linked Open Data</em> verfügbar und können dementsprechend über eine SPARQL-Abfrage gezielt verknüpft und heruntergeladen werden.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(XML)</span>
 <span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
 <span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -260,6 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="annotated-cell-1-37"><a href="#annotated-cell-1-37" aria-hidden="true" tabindex="-1"></a>              <span class="at">body =</span> <span class="fu">paste</span>(<span class="st">"query="</span>, sparql_string, <span class="at">sep =</span> <span class="st">""</span>))</span>
 <span id="annotated-cell-1-38"><a href="#annotated-cell-1-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-1-39"><a href="#annotated-cell-1-39" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">content</span>(query, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
@@ -280,20 +313,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="verschiedene-monate-haben-verschiedene-anzahl-tage" class="level3">
 <h3 class="anchored" data-anchor-id="verschiedene-monate-haben-verschiedene-anzahl-tage">Verschiedene Monate haben verschiedene Anzahl Tage</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(data, <span class="fu">paste</span>(year, month, <span class="st">"01"</span>, <span class="at">sep =</span> <span class="st">"-"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.Date</span>() <span class="sc">|&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">days_in_month</span>() <span class="ot">-&gt;</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    days_in_month</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>days_in_month <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">20</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun Jul Aug 
  31  28  31  30  31  30  31  31  30  31  30  31  31  28  31  30  31  30  31  31 </code></pre>
 </div>
 </div>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data[,<span class="st">"milkPerDay"</span>] <span class="ot">&lt;-</span> data[,<span class="st">"measure"</span>]<span class="sc">/</span>days_in_month <span class="sc">*</span> <span class="fl">0.001</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>TS <span class="ot">&lt;-</span> <span class="fu">ts</span>(data<span class="sc">$</span>milkPerDay, <span class="at">start =</span> <span class="dv">2001</span>, <span class="at">frequency =</span> <span class="dv">12</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> TS <span class="sc">-</span> <span class="fu">decompose</span>(TS)<span class="sc">$</span>seasonal</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -309,9 +348,37 @@ Abbildung&nbsp;1: Die täglich produzierte Milchmenge über die Jahre (schwarz) 
 </div>
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="erkennung-von-schockähnlichen-produktionsveränderungen" class="level2">
+<h2 class="anchored" data-anchor-id="erkennung-von-schockähnlichen-produktionsveränderungen">Erkennung von schockähnlichen Produktionsveränderungen</h2>
+<p><span id="eq-z"><span class="math display">\[z = \frac{\Delta y - \mu}{\sigma} \tag{1}\]</span></span></p>
+<p>Hierbei ist <span class="math inline">\(y\)</span> die tägliche Milchproduktion, <span class="math inline">\(\Delta y\)</span> ist die <em>Veränderung</em> der täglichen Milchproduktion im Vergleich zum Vormonat, <span class="math inline">\(\mu\)</span> ist das Arithmetische Mittel von <span class="math inline">\(\Delta y\)</span> und <span class="math inline">\(\sigma\)</span> die Standardabweichung von <span class="math inline">\(\Delta y\)</span>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">diff</span>(y))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">3</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>((yp <span class="ot">&lt;-</span> <span class="fu">diff</span>(y)<span class="sc">/</span><span class="fu">mean</span>(y)<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Veränderung der Milchproduktion im Vergleich zum Vormonat [%]"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Zeit"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.5</span>,<span class="fl">5.5</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">hist</span>(z, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#with(h, barplot(density ~ mids, horiz = TRUE, ylab = "", axes = FALSE, names.arg = NA, ylim = c(-3,4)))</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># plot.new()</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plot.window(xlim = c())</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
 </section>
 </section>
 

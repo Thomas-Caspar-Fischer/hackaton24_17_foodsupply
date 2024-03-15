@@ -11,6 +11,7 @@ categories:
   - Hitze
 date: 2024-03-15
 author: [Corinne Straub, Damian Oswald]
+code-fold: true
 ---
 
 ![](image.webp)
@@ -100,5 +101,23 @@ grid()
 lines(y, col = "red", lwd = 2)
 ```
 
+## Erkennung von schockähnlichen Produktionsveränderungen
 
+$$z = \frac{\Delta y - \mu}{\sigma}$${#eq-z}
+
+Hierbei ist $y$ die tägliche Milchproduktion, $\Delta y$ ist die *Veränderung* der täglichen Milchproduktion im Vergleich zum Vormonat, $\mu$ ist das Arithmetische Mittel von $\Delta y$ und $\sigma$ die Standardabweichung von $\Delta y$.
+
+```{r}
+z <- scale(diff(y))
+layout(mat = matrix(c(1,1,2), ncol = 3))
+plot((yp <- diff(y)/mean(y)*100),
+     ylab = "Veränderung der Milchproduktion im Vergleich zum Vormonat [%]",
+     xlab = "Zeit",
+     ylim = c(-3.5,5.5))
+grid()
+h <- hist(z, plot = FALSE)
+#with(h, barplot(density ~ mids, horiz = TRUE, ylab = "", axes = FALSE, names.arg = NA, ylim = c(-3,4)))
+# plot.new()
+# plot.window(xlim = c())
+```
 
