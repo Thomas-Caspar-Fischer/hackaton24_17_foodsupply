@@ -27,16 +27,15 @@ Dieses soll folgende Elemente umfassen:
 - Einen Bereich für ad hoc Analysen und methodischen Erläuterungen im [Blog-Format](https://thomas-caspar-fischer.github.io/hackaton24_17_foodsupply/blog.html)
 - Einschätzungen von Expertinnen aus der Wirtschaft via Survey erheben / in Dashboard einbauen (Datensammlung)
 
-## Lösungsansatz & Skripts & Datenquellen
-Als MVP bauen wir einen Prototypen des Portals für eine ausgewählte Produktekategorie (Milch 🥛). 
+## Lösungsansatz
+Als MVP bauen wir einen Prototypen des Portals für eine ausgewählte Produktekategorie (Milch 🥛). Die Idee ist, dass dieser durch die Integration weiterer Datenquellen aus dem In- und Ausland auf alle Produktionskategorien erweitert werden kann.  
 
-### Datenquellen : 
+### Datenquellen
 - Milchproduktion : [Datenportal Agrar- und Lebensmittelmärkte](https://www.agrarmarktdaten.ch/), Bundesamt für Landwirtschaft (BLW)
 - Milchimport : [Agridata, Food Supply Data Base of the Europen Union](https://agridata.ec.europa.eu/extensions/FoodSupply/FoodSupply.html)
   
 ### Komponenten des Informationsportals
-- Quarto Blog 
-- Flexdashboard 
-
+- Quarto Blog [Code](https://github.com/Thomas-Caspar-Fischer/hackaton24_17_foodsupply/blob/main/foodsupply_dashboard.Rmd)
+- Flexdashboard [Code](https://github.com/Thomas-Caspar-Fischer/hackaton24_17_foodsupply/blob/main/foodsupply_dashboard.Rmd)
 
 
