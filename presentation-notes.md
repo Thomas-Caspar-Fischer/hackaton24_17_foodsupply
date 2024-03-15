@@ -9,13 +9,13 @@
 
 ## 3. Slide
 
-- Zudem nehmen Herausforderungen entlang der Versorgungskette zu: Wir werden mit Shocks wie Pandemien, Dürreperioden, Naturkatastrophen und Kriegen konfrontiert.
+- Zudem nehmen Herausforderungen entlang der Versorgungskette zu: Pandemien, Dürreperioden, Naturkatastrophen und Kriege.
 - Bei Engpässen hat die Schweiz eine eingeschränkte Handlungsfähigkeit durch unzureichende Datengrundlagen.
 - Eine Vernetzung unterschiedlichster Datenquellen und Expertenwissen ist essentiell, um die Versorgungssicherheit der Schweiz zu gewährleisten!!
 
 ## Lösung
 
-- Die Informationsplattform *Swiss Food Supply*, welche Entscheidungsträger:innen einen schnellen und unkomplizierten Überblick gibt.
+- Die Informationsportal *Swiss Food Supply*, welche Entscheidungsträger:innen einen schnellen und unkomplizierten Überblick gibt.
 - Das zentrale Daten- & Informationsportal hilft Entscheidungsträger:innen aus Politik, Verwaltung und Wirtschaft, sich ein klareres Bild zu schaffen und gezielt Handeln zu können.
 - Die Plattform ist *Open-Source*, *Open-Data* und *Open-Science*. Damit ist sie nicht nur für Entscheidungsträger:innen zugänglich, sondern auch der breiten Öffentlichkeit.
 
@@ -29,6 +29,9 @@
 
 - Das globale Ernährunssystem ist hochkomplex. Die Zahlen aus dem Dashboard können schnell Verwirrung stiften. Damit die Statistiken kontextualisiert werden können, gibt es auf *Swiss Food Supply* auch einen Blog.
 - Darauf werden regelmässig Expertenmeinungen zur aktuellen Lage der Versorgungssicherheit publiziert. *Open-Source*, *Open-Data* und *Open-Science*.
+- Hier seht ihr den letzten Post zur durstigen Kuh.
 
 ## Ausblick 'Gewappnet für das Unerwartete'
+- Wie könnte es weitergehen?
 - Dieser Prototyp zeigt nur einen Ausschnitt aus dem Ernährungsbereich, um für alle möglichen schwarzen Schwäne gewappnet zu sein, müsste die Vernetzung auf den gesamten Sektor ausgeweitet werden.
+- Für das BWL wird dies auf jeden Fall ein Game Changer sein.
