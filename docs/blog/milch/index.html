@@ -197,7 +197,7 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -247,7 +247,7 @@ window.Quarto = {
 
 
 <p><img src="image.webp" class="img-fluid"></p>
-<section id="schreiben-einer-sparql-abfrage" class="level1">
+<section id="schreiben-einer-sparql-abfrage" class="level1 page-columns page-full">
 <h1>Schreiben einer SPARQL-Abfrage</h1>
 <p>Zuallererst werden die Daten direkt über <a href="https://www.agrarmarktdaten.ch/">agrarmarktdaten.ch</a> eingezogen. Die Daten sind als <em>Linked Open Data</em> verfügbar und können dementsprechend über eine SPARQL-Abfrage gezielt verknüpft und heruntergeladen werden.</p>
 <div class="cell">
@@ -350,30 +350,19 @@ Abbildung&nbsp;1: Die täglich produzierte Milchmenge über die Jahre (schwarz) 
 </div>
 </section>
 </section>
-<section id="erkennung-von-schockähnlichen-produktionsveränderungen" class="level2">
+<section id="erkennung-von-schockähnlichen-produktionsveränderungen" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="erkennung-von-schockähnlichen-produktionsveränderungen">Erkennung von schockähnlichen Produktionsveränderungen</h2>
+<p>Schockähnlichen Produktionsveränderungen in der Milchproduktion werden anhand des <span class="math inline">\(z\)</span>-Wertes der Veränderung der täglichen Milchproduktion im Vergleich zum Vormonat erkannt. Spezifisch werden die Ereignisse nach deren Wahrscheinlichkeit sortiert. Der <span class="math inline">\(z\)</span>-Wert wird wie folgt gerechnet.</p>
 <p><span id="eq-z"><span class="math display">\[z = \frac{\Delta y - \mu}{\sigma} \tag{1}\]</span></span></p>
 <p>Hierbei ist <span class="math inline">\(y\)</span> die tägliche Milchproduktion, <span class="math inline">\(\Delta y\)</span> ist die <em>Veränderung</em> der täglichen Milchproduktion im Vergleich zum Vormonat, <span class="math inline">\(\mu\)</span> ist das Arithmetische Mittel von <span class="math inline">\(\Delta y\)</span> und <span class="math inline">\(\sigma\)</span> die Standardabweichung von <span class="math inline">\(\Delta y\)</span>.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">diff</span>(y))</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">3</span>))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>((yp <span class="ot">&lt;-</span> <span class="fu">diff</span>(y)<span class="sc">/</span><span class="fu">mean</span>(y)<span class="sc">*</span><span class="dv">100</span>),</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Veränderung der Milchproduktion im Vergleich zum Vormonat [%]"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Zeit"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.5</span>,<span class="fl">5.5</span>))</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">hist</span>(z, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#with(h, barplot(density ~ mids, horiz = TRUE, ylab = "", axes = FALSE, names.arg = NA, ylim = c(-3,4)))</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># plot.new()</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plot.window(xlim = c())</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<div class="page-columns page-full">
+<div class="cell page-columns page-full">
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid figure-img column-page-right" style="width:100.0%"></p>
 </figure>
+</div>
 </div>
 </div>
 </div>

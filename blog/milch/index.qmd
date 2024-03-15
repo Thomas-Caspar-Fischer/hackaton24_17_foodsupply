@@ -103,21 +103,49 @@ lines(y, col = "red", lwd = 2)
 
 ## Erkennung von schockähnlichen Produktionsveränderungen
 
+Schockähnlichen Produktionsveränderungen in der Milchproduktion werden anhand des $z$-Wertes der Veränderung der täglichen Milchproduktion im Vergleich zum Vormonat erkannt. Spezifisch werden die Ereignisse nach deren Wahrscheinlichkeit sortiert. Der $z$-Wert wird wie folgt gerechnet.
+
 $$z = \frac{\Delta y - \mu}{\sigma}$${#eq-z}
 
 Hierbei ist $y$ die tägliche Milchproduktion, $\Delta y$ ist die *Veränderung* der täglichen Milchproduktion im Vergleich zum Vormonat, $\mu$ ist das Arithmetische Mittel von $\Delta y$ und $\sigma$ die Standardabweichung von $\Delta y$.
 
+:::{.column-page-right}
+
 ```{r}
+#| out-width: 100%
+#| fig-format: svg
+#| fig-height: 4
+#| fig-width: 8
+#| echo: false
 z <- scale(diff(y))
-layout(mat = matrix(c(1,1,2), ncol = 3))
+layout(mat = matrix(c(1,1,1,2), ncol = 4))
+par(mar = c(4,4,0,0)+0.1)
 plot((yp <- diff(y)/mean(y)*100),
      ylab = "Veränderung der Milchproduktion im Vergleich zum Vormonat [%]",
      xlab = "Zeit",
-     ylim = c(-3.5,5.5))
+     ylim = c(-4,5.5))
 grid()
-h <- hist(z, plot = FALSE)
-#with(h, barplot(density ~ mids, horiz = TRUE, ylab = "", axes = FALSE, names.arg = NA, ylim = c(-3,4)))
-# plot.new()
-# plot.window(xlim = c())
+xx <- seq(-5,6,l=1000)
+yy <- dnorm(xx, mean = mean(yp), sd = sd(yp))
+crit01 <- qnorm(0.01)*sd(yp)+mean(yp)
+crit05 <- qnorm(0.05)*sd(yp)+mean(yp)
+polygon(x = c(2000,2050,2050,2000), y = c(crit01,crit01,-10,-10), col = adjustcolor("red", 0.5), border = FALSE)
+polygon(x = c(2000,2050,2050,2000), y = c(crit05,crit05,-10,-10), col = adjustcolor("red", 0.3),
+        border = FALSE)
+box()
+lines(yp)
+h <- hist(yp, plot = FALSE, breaks = 20)
+par(mar = c(4,0,0,0)+0.1)
+plot.new()
+plot.window(xlim = range(h$density), ylim = c(-4,5.5))
+for (i in 1:length(h$density)) {
+  w <- unique(diff(h$mids))/2
+  polygon(x = c(0,0,h$density[i],h$density[i]),
+          y = c(h$mids[i]-w,h$mids[i]+w,h$mids[i]+w,h$mids[i]-w))
+}
+polygon(y = c(xx[xx<crit01], rev(xx[xx<crit01])), x = c(rep(0,length(yy[xx<crit01])), rev(yy[xx<crit01])), col = adjustcolor("red", 0.5), border = FALSE)
+polygon(y = c(xx[xx<crit05], rev(xx[xx<crit05])), x = c(rep(0,length(yy[xx<crit05])), rev(yy[xx<crit05])), col = adjustcolor("red", 0.3), border = FALSE)
+lines(x = yy, y = xx)
 ```
+:::
 
