@@ -1,0 +1,331 @@
+---
+title: "GovTech24 - Informationsplattform Versorgungssicherheit"
+output: 
+  flexdashboard::flex_dashboard:
+    theme: 
+      version: 4
+      bootswatch: minty
+    orientation: rows
+    vertical_layout: fill
+runtime: shiny
+---
+
+<style>
+
+body {
+  padding-top:0px;
+  background : #FFFFFF
+}
+
+.navbar{
+  visibility: hidden
+}
+
+</style>
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(httr)
+library(readr)
+library(ggplot2)
+library("tidyverse")
+library("XML")
+library("bslib")
+library(forecast) 
+library(plotly)
+```
+
+
+```{r echo=FALSE, warnings=FALSE}
+# Data Query Milch-Daten
+rm(list=ls())
+
+# packages ------------------------------------------------------------
+
+# proxy_url <- "http://proxy-bvcol.admin.ch:8080"
+# httr::set_config(httr::use_proxy(proxy_url))
+
+
+# SPARQL query to LINDAS --------------------------------------------------
+
+# sparql_string <- paste0('
+#   PREFIX cube: <https://cube.link/>
+#   PREFIX sh: <http://www.w3.org/ns/shacl#>
+#   PREFIX schema: <http://schema.org/>
+#   PREFIX time: <http://www.w3.org/2006/time#>
+#   PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+# 
+#   SELECT DISTINCT
+#                  ?measure
+#     ?year ?month
+#   WHERE {
+#     GRAPH <https://lindas.admin.ch/foag/agricultural-market-data> {
+#       VALUES(?product) {
+# (<https://agriculture.ld.admin.ch/foag/product/4>) }
+# 
+#       <https://agriculture.ld.admin.ch/foag/cube/MilkDairyProducts/Production_Quantity_Month> cube:observationSet ?observationSet .
+#       ?observationSet cube:observation ?observation .
+#     ?observation <https://agriculture.ld.admin.ch/foag/dimension/date> ?date .
+#     ?observation <https://agriculture.ld.admin.ch/foag/dimension/product> ?product .
+#     ?observation <https://agriculture.ld.admin.ch/foag/measure/quantity> ?measure .
+# 
+#       }
+#   ?date time:year ?year.
+#     OPTIONAL { ?date time:month ?month. }
+#   }
+#                         ')
+# 
+# # print(sparql_string)
+# 
+# query <- POST("https://ld.admin.ch/query",
+#               add_headers("Accept" = "text/csv"),
+#               content_type("application/x-www-form-urlencoded; charset=UTF-8"),
+#               body = paste("query=", sparql_string, sep = ""))
+# 
+# data <- content(query, encoding = "UTF-8")
+
+# write_csv(data, "data/agridata_ch_fresh_milk_prod.csv")
+
+data <- read_csv("data/agridata_ch_fresh_milk_prod.csv")
+
+```
+
+```{r}
+# Data Transformation Production Data
+days_in_month <- lubridate::days_in_month(as.Date(with(data, paste(year, month, "01", sep = "-"))))
+data[,"milkPerDay"] <- data[,"measure"]/days_in_month * 0.001
+TS <- ts(data$milkPerDay, start = 2001, frequency = 12)
+y <- TS - decompose(TS)$seasonal
+z <- scale(diff(y))
+data[,"z"] <- c(NA, z)
+x <- seq(-5,5,l=1000)
+x2 <- x[x< -1.96]
+y2 <- dnorm(x)[x< -1.96]
+data[,"extreme"] <- c(NA, z< -1.96)
+data <- data %>% mutate(change=(measure - lag(measure))/lag(measure))
+
+prod_data_latest <- data %>% tail(1)
+```
+
+
+```{r}
+# Import Data
+
+eu_data <- read_csv("data/agridata_eu_fresh_milk_export.csv") %>% filter(Einheit=="tons")
+
+```
+
+```{r}
+# Data Transformation Import Data
+eu_days_in_month <- lubridate::days_in_month(as.Date(with(eu_data, paste(marketingYear, month, "01", sep = "-"))))
+
+eu_data[,"milkPerDay"] <- eu_data[,"Wert"]/eu_days_in_month
+
+TS <- ts(eu_data$milkPerDay, start = 2014, frequency = 12)
+y <- TS - decompose(TS)$seasonal
+z <- scale(diff(y))
+eu_data[,"z"] <- c(NA, z)
+x <- seq(-5,5,l=1000)
+x2 <- x[x< -1.96]
+y2 <- dnorm(x)[x< -1.96]
+eu_data[,"extreme"] <- c(NA, z< -1.96)
+eu_data <- eu_data %>% mutate(change_imp=(milkPerDay - lag(milkPerDay))/lag(milkPerDay))
+
+eu_import_data_latest <- eu_data %>% tail(1)
+```
+
+
+```{r}
+
+# Funktion für Farbgebung der Valueboxes 
+color_fun <-     function(value){ if (value < qnorm(0.01)) {
+      return("red")
+    } else if (value < qnorm(0.1)) {
+      return("orange")
+    } else {
+      return("#343a40")
+    }}
+    
+```
+
+
+```{r}
+
+# Funktion für Pfeil
+arrow_fun <-     function(value){ if (value < 0) {
+       return("fa-arrow-down")
+    } else {
+      return("fa-arrow-up")}
+      }
+    
+```
+
+Infoboxen {data-width=200}
+-------------------------------------
+
+### Tages-Produktion Ø (in Tonnen)
+
+```{r}
+
+# r <- reactiveVal(10)
+# renderValueBox({
+    # value <- runif(1, min = -100, max = 100) # Generate a random
+value <- prod_data_latest$milkPerDay
+z <- prod_data_latest$z
+change <- formatC(prod_data_latest$change, format="f", digits=2)
+
+change_perc <- ifelse(change>0, 
+                 paste0("+", change, "%"),
+                 paste0("-", change))
+    # Determine the color based on the value
+    # Create the value box with the determined color
+
+# Beschrieb einfügen
+    valueBox(
+      # paste(formatC(value, format = "f", digits = 2),
+            # "(",
+            change_perc,
+            # ,")" ),
+      # Display the value formatted to 2 decimal places
+      # subtitle = "Random Value",
+      color = color_fun(z),
+      icon=arrow_fun(z)
+    # ICON funktioniert nicht?
+    )
+  # })
+  
+```
+
+### Import (in Tonnen)
+
+```{r}
+
+import_value <- eu_import_data_latest$milkPerDay
+import_z <- eu_import_data_latest$z
+
+change_imp <- formatC(eu_import_data_latest$change_imp, format="f", digits=2)
+
+change_imp_perc <- ifelse(change_imp>0, 
+                 paste0("+", change_imp, "%"),
+                 paste0("-", change_imp))
+  
+    # Determine the color based on the value
+    # Create the value box with the determined color
+# Beschrieb einfügen
+    valueBox(
+      change_imp_perc,
+      # formatC(import_value, format = "f", digits = 2), # Display the value formatted to 2 decimal places
+      # subtitle = "Random Value",
+      color = color_fun(import_z),
+      icon=arrow_fun(change_imp)
+    # ICON funktioniert nicht?
+    )
+  # })
+  
+    
+    # arrow_fun(import_z)
+```
+
+### Versorgungslage
+
+```{r}
+valueBox(
+      "stabil", # Display the value formatted to 2 decimal places
+      # subtitle = "Random Value",
+      color = "#343a40",
+      icon = "fa-thumbs-o-up"
+    )
+```
+
+### Selbstversorgungsgrad
+
+```{r}
+
+anteil <- eu_import_data_latest$milkPerDay / prod_data_latest$milkPerDay *100
+
+valueBox(
+  paste0(formatC(100-anteil, format="f", digits=2),"%"), # Display the value formatted to 2 decimal places
+      # subtitle = "Random Value",
+      color = "#343a40",
+      icon = "fa-thumbs-o-up"
+    )
+```
+
+Row {data-width=1650}
+-----------------------------------------------------------------------
+
+### Produktion - Monatsdurchschnitt der täglich produzierten Milchmenge (in Tonnen)
+
+```{r out.width="200%"}
+# TS <- ts(data$milkPerDay, start = 2001, frequency = 12)
+# y <- TS - decompose(TS)$seasonal
+# plot(TS, ylab = "Täglich produzierte Milchmenge [t]", xlab = "Zeit")
+# grid()
+# lines(y, col = "red", lwd = 2)
+
+
+TS <- ts(data$milkPerDay, start = 2001, frequency = 12)
+
+# Decompose the time series
+decomposed_TS <- decompose(TS)
+
+# Seasonally adjusted series
+y <- TS - decomposed_TS$seasonal
+
+# Convert to data.frame for ggplot
+ts_data <- tibble(
+  Datum = time(TS),
+  `Milch in Tonnen` = as.numeric(TS),
+  `Milch in Tonnen (saisonbereinigt)` = as.numeric(y)
+)
+
+# Plot with ggplot
+gg1 <- ggplot(ts_data, aes(x = Datum)) +
+  geom_line(aes(y =  `Milch in Tonnen`), colour = "#343a40") +
+  geom_line(aes(y = `Milch in Tonnen (saisonbereinigt)`), colour = "red", size = 1) +
+  labs(x = "", y = "Tonnen") +
+  ggtitle("") +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+
+
+ggplotly(gg1)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Import - Total der monatlich importierten Milchmenge (in Tonnen)
+
+```{r}
+
+TS_eu <- ts(c(rep(NA, 156),unlist(eu_data[eu_data$Einheit=="tons","milkPerDay"])), start = 2001, frequency = 12)
+
+# Decompose the time series
+decomposed_TS_eu <- decompose(TS_eu)
+
+# Seasonally adjusted series
+y_eu <- TS_eu - decomposed_TS_eu$seasonal
+
+# Convert to data.frame for ggplot
+ts_data_eu <- tibble(
+  Datum = time(TS_eu),
+  `Milch in Tonnen` = as.numeric(TS_eu),
+  `Milch in Tonnen (saisonbereinigt)` = as.numeric(y_eu)
+)
+
+# Plot with ggplot
+gg1_eu <- ggplot(ts_data_eu, aes(x = Datum)) +
+  geom_line(aes(y =  `Milch in Tonnen`), colour = "#343a40") +
+  geom_line(aes(y = `Milch in Tonnen (saisonbereinigt)`), colour = "red", size = 1) +
+  labs(x = "", y = "Tonnen") +
+  ggtitle("") +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+
+
+ggplotly(gg1_eu)
+```
+
