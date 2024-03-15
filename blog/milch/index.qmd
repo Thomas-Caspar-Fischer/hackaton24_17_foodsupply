@@ -12,9 +12,11 @@ categories:
 date: 2024-03-15
 author: [Corinne Straub, Damian Oswald]
 code-fold: true
+execute: 
+  echo: false
 ---
 
-![](image.webp)
+![](image.webp){width=60% fig-align="center"}
 
 # Schreiben einer SPARQL-Abfrage
 
@@ -78,7 +80,6 @@ with(data, paste(year, month, "01", sep = "-")) |>
     as.Date() |>
     days_in_month() ->
     days_in_month
-days_in_month |> head(20)
 ```
 
 ```{r}
@@ -149,3 +150,22 @@ lines(x = yy, y = xx)
 ```
 :::
 
+## Wann hatten wir schockähnliche Zustände?
+
+Im Rahmen unserer umfassenden Analyse des Milchproduktion präsentieren wir eine detaillierte Tabelle, die die Ergebnisse der Evaluierung von Milchdaten sowie die Identifizierung von Schockzuständen über einen längeren Zeitraum hinweg darstellt. Diese Tabelle ermöglicht es uns, einen tieferen Einblick in die Schwankungen der Milchqualität zu gewinnen, indem sie die Verteilung und Häufigkeit von Schockzuständen in diversen Jahren aufzeigt. Diese Beobachtungen sind essenziell für das Verständnis der zeitlichen Muster und der potenziellen externen Faktoren, die diese Zustände beeinflussen können. Durch die sorgfältige Untersuchung dieser Daten können wir nicht nur die Stabilität und Sicherheit der Milchversorgung gewährleisten, sondern auch gezielte Massnahmen zur Verbesserung der Milchqualität in Zeiten identifizierter Schockzustände entwickeln.
+
+```{r}
+df <- data.frame(tail(data,-1), z, z< qnorm(0.05))[,-1]
+months <- c("Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember")
+yes <- c("Ja", "Nein")
+colnames(df) <- c("Jahr", "Monat", "Milchmenge [t/d]", "z", "Extremwert")
+df[,2] <- months[df[,2]]
+df[,3] <- round(df[,3], 1)
+df[,4] <- round(df[,4], 3)
+df[,5] <- yes[as.integer(df[,5])+1]
+reactable::reactable(df)
+```
+
+Die detaillierte Analyse und Bewertung der Milchproduktionsdaten, einschliesslich der identifizierten Schockzustände über verschiedene Zeiträume hinweg, ist in der nachstehenden Tabelle dargestellt. Bei dieser umfassenden Untersuchung konnten Schockzustände in unterschiedlichen Jahren festgestellt werden, die signifikante Auswirkungen auf die Qualität und Quantität der Milchproduktion hatten. Ein besonders hervorzuhebender Zeitpunkt ist der Spätsommer des Jahres 2002. In diesem Zeitraum wurde die Schweiz von einer aussergewöhnlich intensiven Hitzewelle heimgesucht. Die ungewöhnlich hohen Temperaturen hatten einen direkten und erheblichen Einfluss auf die Milchwirtschaft des Landes. Die extremen Wetterbedingungen führten zu einer signifikanten Beeinträchtigung der physiologischen Zustände der Milchkühe, was wiederum eine merkliche Reduktion in der Milchproduktion zur Folge hatte. Dieser Zeitraum dient als exemplarisches Beispiel für die Vulnerabilität der Milchwirtschaft gegenüber klimatischen Extremereignissen und unterstreicht die Notwendigkeit adaptiver Strategien zur Sicherstellung der Stabilität und Nachhaltigkeit der Milchproduktion unter sich verändernden Umweltbedingungen.
+
+![Badegäste hatten Freude am Hitzesommer 2002, Kühe allerdings weniger. Die optimale Temperatur für die Milchproduktion liegt bei 10 °C -- wenn es zu heiss wird, leidet die Leistung.](heat.webp)
