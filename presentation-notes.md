@@ -18,7 +18,6 @@
 - Die Informationsplattform *Swiss Food Supply*, welche Entscheidungsträger:innen einen schnellen und unkomplizierten Überblick gibt.
 - Das zentrale Daten- & Informationsportal hilft Entscheidungsträger:innen aus Politik, Verwaltung und Wirtschaft, sich ein klareres Bild zu schaffen und gezielt Handeln zu können.
 - Die Plattform ist *Open-Source*, *Open-Data* und *Open-Science*. Damit ist sie nicht nur für Entscheidungsträger:innen zugänglich, sondern auch der breiten Öffentlichkeit.
-- Sie besteht aus einem Dashboard und einem Blog.
 
 ## Das Dashboard
 
