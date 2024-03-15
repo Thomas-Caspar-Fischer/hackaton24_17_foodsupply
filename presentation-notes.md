@@ -5,16 +5,18 @@
 ## 2. Slide
 
 - Essen müssen wir alle. Während die heimische Nahrungsmittelproduktion mit vielen Herausforderungen kämpft, wird immer mehr aus aller Welt importiert.
-- Diese komplexe globale Produktionskette macht es extrem schwierig, einen Überblick zu behalten.
+- Diese komplexe, globale Produktionskette macht es extrem schwierig, einen Überblick zu behalten.
 
 ## 3. Slide
 
-- Eine Vernetzung unterschiedlichster Datenquellen und Expertenwissen ist essentiell, um die Versorgungssicherheit der Schweiz zu gewährleisten.
-- Diese Vernetzung hilft Entscheidungsträger:innen aus Politik, Verwaltung und Wirtschaft, sich ein klareres Bild zu schaffen und gezielt Handeln zu können.
+- Zudem nehmen Herausforderungen entlang der Versorgungskette zu: Wir werden mit Shocks wie Pandemien, Dürreperioden, Naturkatastrophen und Kriegen konfrontiert.
+- Bei Engpässen hat die Schweiz eine eingeschränkte Handlungsfähigkeit durch unzureichende Datengrundlagen.
+- Eine Vernetzung unterschiedlichster Datenquellen und Expertenwissen ist essentiell, um die Versorgungssicherheit der Schweiz zu gewährleisten!!
 
 ## Lösung
 
 - Die Informationsplattform *Swiss Food Supply*, welche Entscheidungsträger:innen einen schnellen und unkomplizierten Überblick gibt.
+- Das zentrale Daten- & Informationsportal hilft Entscheidungsträger:innen aus Politik, Verwaltung und Wirtschaft, sich ein klareres Bild zu schaffen und gezielt Handeln zu können.
 - Die Plattform ist *Open-Source*, *Open-Data* und *Open-Science*. Damit ist sie nicht nur für Entscheidungsträger:innen zugänglich, sondern auch der breiten Öffentlichkeit.
 - Sie besteht aus einem Dashboard und einem Blog.
 
