@@ -32,6 +32,4 @@
 - Darauf werden regelmässig Expertenmeinungen zur aktuellen Lage der Versorgungssicherheit publiziert. *Open-Source*, *Open-Data* und *Open-Science*.
 
 ## Ausblick 'Gewappnet für das Unerwartete'
-- Um für das Unerwartete gewappnet zu sein, müssen die Daten ausgeweitet werden: Auf alle Lebensmittel, auf Daten aus Übersee
-- Weitere Vergleiche mit früheren Jahresdurchschnitten
-- Ausbau der Lagebeurteilungen & Analysen von Experten/innen
+- Dieser Prototyp zeigt nur einen Ausschnitt aus dem Ernährungsbereich, um für alle möglichen schwarzen Schwäne gewappnet zu sein, müsste die Vernetzung auf den gesamten Sektor ausgeweitet werden.
