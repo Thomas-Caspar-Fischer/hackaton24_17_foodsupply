@@ -31,10 +31,12 @@ Dieses soll folgende Elemente umfassen:
 Als MVP bauen wir einen Prototypen des Portals für eine ausgewählte Produktekategorie (Milch 🥛). 
 
 ### Datenquellen : 
-
-- Milchproduktion via SPARQL : https://www.agrarmarktdaten.ch/
-- Import von Milch ... :
-- Weitere
+- Milchproduktion : [Datenportal Agrar- und Lebensmittelmärkte](https://www.agrarmarktdaten.ch/), Bundesamt für Landwirtschaft (BLW)
+- Milchimport : [Agridata, Food Supply Data Base of the Europen Union](https://agridata.ec.europa.eu/extensions/FoodSupply/FoodSupply.html)
+  
+### Komponenten des Informationsportals
+- Quarto Blog 
+- Flexdashboard 
 
 
 
