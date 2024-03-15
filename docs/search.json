@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Herzlich Willkommen auf der Informations-Website zur Schweizer Ernährungssicherheit!",
+    "title": "Herzlich Willkommen auf Swiss Food Supply!",
     "section": "",
-    "text": "Herzlich Willkommen auf der Informations-Website zur Schweizer Ernährungssicherheit!\n\nHier finden Sie Open-Source, Open-Data und Open-Science-Informationen bezüglich dem Zustand der Schweizer Ernährungssicherheit\n\nEin Dashboard zeigt die aktuelle Situation der Schweizer Landesversorgung.\nIn unserem Ernährungssicherheits-Blog finden Sie alle möglichen interessanten Analysen."
+    "text": "Herzlich Willkommen auf Swiss Food Supply!\nDies ist die offizielle Informations-Website zur Versorgungssicherheit der Schweiz mit Lebensmitteln.\n\nHier finden Sie Open-Source, Open-Data und Open-Science-Informationen bezüglich dem Zustand der Schweizer Ernährungssicherheit\n\nEin Dashboard zeigt die aktuelle Situation der Schweizer Landesversorgung.\nIn unserem Ernährungssicherheits-Blog finden Sie alle möglichen interessanten Analysen."
   },
   {
     "objectID": "blog/test/index.html",
@@ -25,14 +25,28 @@
     "href": "blog/milch/index.html#umrechnen-der-daten",
     "title": "Die durstige Kuh: Wie Produktionsschocks im Schweizer Milchmarkt gefunden werden",
     "section": "Umrechnen der Daten",
-    "text": "Umrechnen der Daten\nIn einem ersten Schritt müssen die Daten für die Analyse vorbereitet werden. Dazu sehen wir sie uns in ihrer Grundstruktur an.\n…\n\nVerschiedene Monate haben verschiedene Anzahl Tage\n\nwith(data, paste(year, month, \"01\", sep = \"-\")) |&gt;\n    as.Date() |&gt;\n    days_in_month() -&gt;\n    days_in_month\ndays_in_month |&gt; head(20)\n\nJan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun Jul Aug \n 31  28  31  30  31  30  31  31  30  31  30  31  31  28  31  30  31  30  31  31 \n\n\n\ndata[,\"milkPerDay\"] &lt;- data[,\"measure\"]/days_in_month * 0.001\nTS &lt;- ts(data$milkPerDay, start = 2001, frequency = 12)\ny &lt;- TS - decompose(TS)$seasonal\n\n\n\n\n\n\n\n\n\nAbbildung 1: Die täglich produzierte Milchmenge über die Jahre (schwarz) sowie die saisonal korrigierte Milchmenge."
+    "text": "Umrechnen der Daten\nIn einem ersten Schritt müssen die Daten für die Analyse vorbereitet werden. Dazu sehen wir sie uns in ihrer Grundstruktur an.\n…\n\nVerschiedene Monate haben verschiedene Anzahl Tage\n\n\n\n\n\n\n\n\nAbbildung 1: Die täglich produzierte Milchmenge über die Jahre (schwarz) sowie die saisonal korrigierte Milchmenge."
+  },
+  {
+    "objectID": "blog/milch/index.html#erkennung-von-schockähnlichen-produktionsveränderungen",
+    "href": "blog/milch/index.html#erkennung-von-schockähnlichen-produktionsveränderungen",
+    "title": "Die durstige Kuh: Wie Produktionsschocks im Schweizer Milchmarkt gefunden werden",
+    "section": "Erkennung von schockähnlichen Produktionsveränderungen",
+    "text": "Erkennung von schockähnlichen Produktionsveränderungen\nSchockähnlichen Produktionsveränderungen in der Milchproduktion werden anhand des \\(z\\)-Wertes der Veränderung der täglichen Milchproduktion im Vergleich zum Vormonat erkannt. Spezifisch werden die Ereignisse nach deren Wahrscheinlichkeit sortiert. Der \\(z\\)-Wert wird wie folgt gerechnet.\n\\[z = \\frac{\\Delta y - \\mu}{\\sigma} \\tag{1}\\]\nHierbei ist \\(y\\) die tägliche Milchproduktion, \\(\\Delta y\\) ist die Veränderung der täglichen Milchproduktion im Vergleich zum Vormonat, \\(\\mu\\) ist das Arithmetische Mittel von \\(\\Delta y\\) und \\(\\sigma\\) die Standardabweichung von \\(\\Delta y\\)."
+  },
+  {
+    "objectID": "blog/milch/index.html#wann-hatten-wir-schockähnliche-zustände",
+    "href": "blog/milch/index.html#wann-hatten-wir-schockähnliche-zustände",
+    "title": "Die durstige Kuh: Wie Produktionsschocks im Schweizer Milchmarkt gefunden werden",
+    "section": "Wann hatten wir schockähnliche Zustände?",
+    "text": "Wann hatten wir schockähnliche Zustände?\nIm Rahmen unserer umfassenden Analyse des Milchproduktion präsentieren wir eine detaillierte Tabelle, die die Ergebnisse der Evaluierung von Milchdaten sowie die Identifizierung von Schockzuständen über einen längeren Zeitraum hinweg darstellt. Diese Tabelle ermöglicht es uns, einen tieferen Einblick in die Schwankungen der Milchqualität zu gewinnen, indem sie die Verteilung und Häufigkeit von Schockzuständen in diversen Jahren aufzeigt. Diese Beobachtungen sind essenziell für das Verständnis der zeitlichen Muster und der potenziellen externen Faktoren, die diese Zustände beeinflussen können. Durch die sorgfältige Untersuchung dieser Daten können wir nicht nur die Stabilität und Sicherheit der Milchversorgung gewährleisten, sondern auch gezielte Massnahmen zur Verbesserung der Milchqualität in Zeiten identifizierter Schockzustände entwickeln.\n\n\n\n\n\n\nDie detaillierte Analyse und Bewertung der Milchproduktionsdaten, einschliesslich der identifizierten Schockzustände über verschiedene Zeiträume hinweg, ist in der nachstehenden Tabelle dargestellt. Bei dieser umfassenden Untersuchung konnten Schockzustände in unterschiedlichen Jahren festgestellt werden, die signifikante Auswirkungen auf die Qualität und Quantität der Milchproduktion hatten. Ein besonders hervorzuhebender Zeitpunkt ist der Spätsommer des Jahres 2002. In diesem Zeitraum wurde die Schweiz von einer aussergewöhnlich intensiven Hitzewelle heimgesucht. Die ungewöhnlich hohen Temperaturen hatten einen direkten und erheblichen Einfluss auf die Milchwirtschaft des Landes. Die extremen Wetterbedingungen führten zu einer signifikanten Beeinträchtigung der physiologischen Zustände der Milchkühe, was wiederum eine merkliche Reduktion in der Milchproduktion zur Folge hatte. Dieser Zeitraum dient als exemplarisches Beispiel für die Vulnerabilität der Milchwirtschaft gegenüber klimatischen Extremereignissen und unterstreicht die Notwendigkeit adaptiver Strategien zur Sicherstellung der Stabilität und Nachhaltigkeit der Milchproduktion unter sich verändernden Umweltbedingungen.\n\n\n\nBadegäste hatten Freude am Hitzesommer 2002, Kühe allerdings weniger. Die optimale Temperatur für die Milchproduktion liegt bei 10 °C – wenn es zu heiss wird, leidet die Leistung."
   },
   {
     "objectID": "blog.html",
     "href": "blog.html",
     "title": "Ernährungssicherheits-Blog",
     "section": "",
-    "text": "Die durstige Kuh: Wie Produktionsschocks im Schweizer Milchmarkt gefunden werden\n\n\n2 min\n\n\n\nFreitag, 15. März 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDas grosse Schweizer Käseloch-Mysterium: Ein Milchprodukt-Dilemma\n\n\n4 min\n\n\n\nDonnerstag, 14. März 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJodel-Ay-Hee-Hoo: Das akustische Geheimnis für gedeihende Schweizer Weinberge\n\n\n1 min\n\n\n\nDienstag, 5. März 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDas Schweizer Kuh-Paradoxon: Rinder-Verhalten und Kornkreise\n\n\n1 min\n\n\n\nMontag, 12. Februar 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDas Schweizer Schokoladen-Dilemma: Klimawandel und Kakao\n\n\n1 min\n\n\n\nFreitag, 5. Januar 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDas alpine Kartoffel-Wunder: Höheneffekte auf die Kochgeschwindigkeit\n\n\n1 min\n\n\n\nMontag, 18. Dezember 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDas ist ein Test-Blog\n\n\n3 min\n\n\n\nSamstag, 11. März 2023\n\n\n\n\n\n\n\n\nKeine Treffer"
+    "text": "Die durstige Kuh: Wie Produktionsschocks im Schweizer Milchmarkt gefunden werden\n\n\n5 min\n\n\n\nFreitag, 15. März 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDas grosse Schweizer Käseloch-Mysterium: Ein Milchprodukt-Dilemma\n\n\n4 min\n\n\n\nDonnerstag, 14. März 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJodel-Ay-Hee-Hoo: Das akustische Geheimnis für gedeihende Schweizer Weinberge\n\n\n1 min\n\n\n\nDienstag, 5. März 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDas Schweizer Kuh-Paradoxon: Rinder-Verhalten und Kornkreise\n\n\n1 min\n\n\n\nMontag, 12. Februar 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDas Schweizer Schokoladen-Dilemma: Klimawandel und Kakao\n\n\n1 min\n\n\n\nFreitag, 5. Januar 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDas alpine Kartoffel-Wunder: Höheneffekte auf die Kochgeschwindigkeit\n\n\n1 min\n\n\n\nMontag, 18. Dezember 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDas ist ein Test-Blog\n\n\n3 min\n\n\n\nSamstag, 11. März 2023\n\n\n\n\n\n\n\n\nKeine Treffer"
   },
   {
     "objectID": "blog/loch/index.html",

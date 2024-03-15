@@ -23,40 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -103,7 +69,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Suchen"
   }
 }</script>
+<script src="../../site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="../../site_libs/react-18.2.0/react.min.js"></script>
+<script src="../../site_libs/react-18.2.0/react-dom.min.js"></script>
+<script src="../../site_libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="../../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="../../site_libs/reactable-0.4.4/reactable.css" rel="stylesheet">
+<script src="../../site_libs/reactable-binding-0.4.4/reactable.js"></script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -162,12 +164,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#verschiedene-monate-haben-verschiedene-anzahl-tage" id="toc-verschiedene-monate-haben-verschiedene-anzahl-tage" class="nav-link" data-scroll-target="#verschiedene-monate-haben-verschiedene-anzahl-tage">Verschiedene Monate haben verschiedene Anzahl Tage</a></li>
   </ul></li>
+  <li><a href="#erkennung-von-schockähnlichen-produktionsveränderungen" id="toc-erkennung-von-schockähnlichen-produktionsveränderungen" class="nav-link" data-scroll-target="#erkennung-von-schockähnlichen-produktionsveränderungen">Erkennung von schockähnlichen Produktionsveränderungen</a></li>
+  <li><a href="#wann-hatten-wir-schockähnliche-zustände" id="toc-wann-hatten-wir-schockähnliche-zustände" class="nav-link" data-scroll-target="#wann-hatten-wir-schockähnliche-zustände">Wann hatten wir schockähnliche Zustände?</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -216,85 +220,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><img src="image.webp" class="img-fluid"></p>
-<section id="schreiben-einer-sparql-abfrage" class="level1">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="image.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+<section id="schreiben-einer-sparql-abfrage" class="level1 page-columns page-full">
 <h1>Schreiben einer SPARQL-Abfrage</h1>
 <p>Zuallererst werden die Daten direkt über <a href="https://www.agrarmarktdaten.ch/">agrarmarktdaten.ch</a> eingezogen. Die Daten sind als <em>Linked Open Data</em> verfügbar und können dementsprechend über eine SPARQL-Abfrage gezielt verknüpft und heruntergeladen werden.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(XML)</span>
-<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-8" class="code-annotation-target"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>sparql_string <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
-<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a> <span class="st">"PREFIX cube: &lt;https://cube.link/&gt;</span></span>
-<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a><span class="st">  PREFIX sh: &lt;http://www.w3.org/ns/shacl#&gt;</span></span>
-<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a><span class="st">  PREFIX schema: &lt;http://schema.org/&gt;</span></span>
-<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a><span class="st">  PREFIX time: &lt;http://www.w3.org/2006/time#&gt;</span></span>
-<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a><span class="st">  PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;</span></span>
-<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-1-15"><a href="#annotated-cell-1-15" aria-hidden="true" tabindex="-1"></a><span class="st">  SELECT DISTINCT</span></span>
-<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16" aria-hidden="true" tabindex="-1"></a><span class="st">                 ?measure</span></span>
-<span id="annotated-cell-1-17"><a href="#annotated-cell-1-17" aria-hidden="true" tabindex="-1"></a><span class="st">    ?year ?month</span></span>
-<span id="annotated-cell-1-18"><a href="#annotated-cell-1-18" aria-hidden="true" tabindex="-1"></a><span class="st">  WHERE {</span></span>
-<span id="annotated-cell-1-19"><a href="#annotated-cell-1-19" aria-hidden="true" tabindex="-1"></a><span class="st">    GRAPH &lt;https://lindas.admin.ch/foag/agricultural-market-data&gt; {</span></span>
-<span id="annotated-cell-1-20"><a href="#annotated-cell-1-20" aria-hidden="true" tabindex="-1"></a><span class="st">      VALUES(?product) {</span></span>
-<span id="annotated-cell-1-21"><a href="#annotated-cell-1-21" aria-hidden="true" tabindex="-1"></a><span class="st">(&lt;https://agriculture.ld.admin.ch/foag/product/4&gt;) }</span></span>
-<span id="annotated-cell-1-22"><a href="#annotated-cell-1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-1-23"><a href="#annotated-cell-1-23" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;https://agriculture.ld.admin.ch/foag/cube/MilkDairyProducts/Production_Quantity_Month&gt; cube:observationSet ?observationSet .</span></span>
-<span id="annotated-cell-1-24"><a href="#annotated-cell-1-24" aria-hidden="true" tabindex="-1"></a><span class="st">      ?observationSet cube:observation ?observation .</span></span>
-<span id="annotated-cell-1-25"><a href="#annotated-cell-1-25" aria-hidden="true" tabindex="-1"></a><span class="st">    ?observation &lt;https://agriculture.ld.admin.ch/foag/dimension/date&gt; ?date .</span></span>
-<span id="annotated-cell-1-26"><a href="#annotated-cell-1-26" aria-hidden="true" tabindex="-1"></a><span class="st">    ?observation &lt;https://agriculture.ld.admin.ch/foag/dimension/product&gt; ?product .</span></span>
-<span id="annotated-cell-1-27"><a href="#annotated-cell-1-27" aria-hidden="true" tabindex="-1"></a><span class="st">    ?observation &lt;https://agriculture.ld.admin.ch/foag/measure/quantity&gt; ?measure .</span></span>
-<span id="annotated-cell-1-28"><a href="#annotated-cell-1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-1-29"><a href="#annotated-cell-1-29" aria-hidden="true" tabindex="-1"></a><span class="st">      }</span></span>
-<span id="annotated-cell-1-30"><a href="#annotated-cell-1-30" aria-hidden="true" tabindex="-1"></a><span class="st">  ?date time:year ?year.</span></span>
-<span id="annotated-cell-1-31"><a href="#annotated-cell-1-31" aria-hidden="true" tabindex="-1"></a><span class="st">    OPTIONAL { ?date time:month ?month. }</span></span>
-<span id="annotated-cell-1-32"><a href="#annotated-cell-1-32" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="annotated-cell-1-33"><a href="#annotated-cell-1-33" aria-hidden="true" tabindex="-1"></a><span class="st">                        "</span>)</span>
-<span id="annotated-cell-1-34"><a href="#annotated-cell-1-34" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="fu">POST</span>(<span class="st">"https://ld.admin.ch/query"</span>,</span>
-<span id="annotated-cell-1-35"><a href="#annotated-cell-1-35" aria-hidden="true" tabindex="-1"></a>              <span class="fu">add_headers</span>(<span class="st">"Accept"</span> <span class="ot">=</span> <span class="st">"text/csv"</span>),</span>
-<span id="annotated-cell-1-36"><a href="#annotated-cell-1-36" aria-hidden="true" tabindex="-1"></a>              <span class="fu">content_type</span>(<span class="st">"application/x-www-form-urlencoded; charset=UTF-8"</span>),</span>
-<span id="annotated-cell-1-37"><a href="#annotated-cell-1-37" aria-hidden="true" tabindex="-1"></a>              <span class="at">body =</span> <span class="fu">paste</span>(<span class="st">"query="</span>, sparql_string, <span class="at">sep =</span> <span class="st">""</span>))</span>
-<span id="annotated-cell-1-38"><a href="#annotated-cell-1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-1-39"><a href="#annotated-cell-1-39" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">content</span>(query, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-annotation">
-<dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="1,6" data-code-annotation="1">Die nötigen R packages werden an den Suchpfad angeheftet.</span>
-</dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="8,33" data-code-annotation="2">Hier wird eine SPARQL Abfrage geschrieben.</span>
-</dd>
-</dl>
-</div>
-</div>
+<ol type="1">
+<li>Die nötigen R packages werden an den Suchpfad angeheftet.</li>
+<li>Hier wird eine SPARQL Abfrage geschrieben.</li>
+</ol>
 <section id="umrechnen-der-daten" class="level2">
 <h2 class="anchored" data-anchor-id="umrechnen-der-daten">Umrechnen der Daten</h2>
 <p>In einem ersten Schritt müssen die Daten für die Analyse vorbereitet werden. Dazu sehen wir sie uns in ihrer Grundstruktur an.</p>
 <p>…</p>
 <section id="verschiedene-monate-haben-verschiedene-anzahl-tage" class="level3">
 <h3 class="anchored" data-anchor-id="verschiedene-monate-haben-verschiedene-anzahl-tage">Verschiedene Monate haben verschiedene Anzahl Tage</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(data, <span class="fu">paste</span>(year, month, <span class="st">"01"</span>, <span class="at">sep =</span> <span class="st">"-"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.Date</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">days_in_month</span>() <span class="ot">-&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    days_in_month</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>days_in_month <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">20</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun Jul Aug 
- 31  28  31  30  31  30  31  31  30  31  30  31  31  28  31  30  31  30  31  31 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data[,<span class="st">"milkPerDay"</span>] <span class="ot">&lt;-</span> data[,<span class="st">"measure"</span>]<span class="sc">/</span>days_in_month <span class="sc">*</span> <span class="fl">0.001</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>TS <span class="ot">&lt;-</span> <span class="fu">ts</span>(data<span class="sc">$</span>milkPerDay, <span class="at">start =</span> <span class="dv">2001</span>, <span class="at">frequency =</span> <span class="dv">12</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> TS <span class="sc">-</span> <span class="fu">decompose</span>(TS)<span class="sc">$</span>seasonal</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-time-series" class="quarto-figure quarto-figure-center quarto-float anchored">
@@ -309,9 +252,43 @@ Abbildung&nbsp;1: Die täglich produzierte Milchmenge über die Jahre (schwarz) 
 </div>
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="erkennung-von-schockähnlichen-produktionsveränderungen" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="erkennung-von-schockähnlichen-produktionsveränderungen">Erkennung von schockähnlichen Produktionsveränderungen</h2>
+<p>Schockähnlichen Produktionsveränderungen in der Milchproduktion werden anhand des <span class="math inline">\(z\)</span>-Wertes der Veränderung der täglichen Milchproduktion im Vergleich zum Vormonat erkannt. Spezifisch werden die Ereignisse nach deren Wahrscheinlichkeit sortiert. Der <span class="math inline">\(z\)</span>-Wert wird wie folgt gerechnet.</p>
+<p><span id="eq-z"><span class="math display">\[z = \frac{\Delta y - \mu}{\sigma} \tag{1}\]</span></span></p>
+<p>Hierbei ist <span class="math inline">\(y\)</span> die tägliche Milchproduktion, <span class="math inline">\(\Delta y\)</span> ist die <em>Veränderung</em> der täglichen Milchproduktion im Vergleich zum Vormonat, <span class="math inline">\(\mu\)</span> ist das Arithmetische Mittel von <span class="math inline">\(\Delta y\)</span> und <span class="math inline">\(\sigma\)</span> die Standardabweichung von <span class="math inline">\(\Delta y\)</span>.</p>
+<div class="page-columns page-full">
+<div class="cell page-columns page-full">
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid figure-img column-page-right" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="wann-hatten-wir-schockähnliche-zustände" class="level2">
+<h2 class="anchored" data-anchor-id="wann-hatten-wir-schockähnliche-zustände">Wann hatten wir schockähnliche Zustände?</h2>
+<p>Im Rahmen unserer umfassenden Analyse des Milchproduktion präsentieren wir eine detaillierte Tabelle, die die Ergebnisse der Evaluierung von Milchdaten sowie die Identifizierung von Schockzuständen über einen längeren Zeitraum hinweg darstellt. Diese Tabelle ermöglicht es uns, einen tieferen Einblick in die Schwankungen der Milchqualität zu gewinnen, indem sie die Verteilung und Häufigkeit von Schockzuständen in diversen Jahren aufzeigt. Diese Beobachtungen sind essenziell für das Verständnis der zeitlichen Muster und der potenziellen externen Faktoren, die diese Zustände beeinflussen können. Durch die sorgfältige Untersuchung dieser Daten können wir nicht nur die Stabilität und Sicherheit der Milchversorgung gewährleisten, sondern auch gezielte Massnahmen zur Verbesserung der Milchqualität in Zeiten identifizierter Schockzustände entwickeln.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-07b7864643c1426364f4" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-07b7864643c1426364f4">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Jahr":[2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2011,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2012,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2013,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2016,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2018,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2019,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2020,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2022,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023],"Monat":["Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],"Milchmenge [t/d]":[8971.7,9377,9682.3,9784.5,9006.5,8425.7,8046.7,8863.2,8832.4,8243.5,8282.9,8610.7,8973.7,9316.8,9810,10031.1,8949.7,8500.5,8006.6,8848.8,8440.8,8011.2,8168.2,8445.3,8746.9,9248.4,9668,9787.9,8552.8,8150.6,7876.6,9003.4,8589.2,8078.9,8240.9,8575.3,8877.6,9175.1,9556.4,9912.6,8954.2,8173.9,7898.1,9033.9,8692.8,8123.6,8362.2,8694.8,8894.4,9329.7,9745.3,9827.6,8894.2,8208.7,7908.7,8884.9,8672.3,8116.7,8163,8473.9,8859.8,9231.2,9688.1,9813.3,8881.2,8149.7,8011.8,8976.1,8648.3,8304.7,8362,8854.3,9117.6,9445.8,10127.5,9686.2,8630.3,8145.7,8024.3,9188.4,8977.4,8350.7,8669.2,9146.8,9552.1,9989.7,10208.7,10363,9143.7,8815.5,8570.2,9579.2,9266.2,8740.4,8876.7,9191.2,9543,9900,10463.5,10348.9,9370.1,8652.1,8393,9536.3,9295.3,8689.3,8941.2,9312.1,9679.1,10086.3,10649.3,10446.5,9281.3,8577,8490.3,9645.5,9283.1,8746.4,8867.1,9277.8,9611.9,9978.6,10731.3,10296.8,9328.5,8877.1,8613.2,9712.7,9470.2,9020.3,9262.4,9588.8,9824.3,10418.1,10758.4,10600.8,9494,8591.8,8416,9621,9034,8633.3,8857.7,9277.3,9538.5,9810.6,10097.6,10152.6,9267.7,8724,8623,9705.1,9387,8968.6,9198.5,9692.1,9951.3,10241.2,10854.9,10509.9,9681.2,9079.7,8775.3,9882.1,9473.1,9079.9,9227.1,9533.8,9726.8,10075.5,10560.1,10384.5,9459.8,8627.9,8607,9742,9415.4,9152.4,9368.7,9735.5,9981.3,10120.2,10601.7,10266.8,9104.7,8377.3,8295.4,9489.7,9146.4,8577.2,8939.6,9126.5,9541,9962.5,10546.4,10213.3,9200.4,8538.7,8405,9689.6,9344.7,9030,9340.2,9726.7,9944.4,10125.2,10653.6,10351.5,9208.5,8638.1,8328.8,9543.6,9306.2,8821.1,8981.2,9249,9567.2,10002.9,10462.1,10330.8,9265.3,8410.6,8297.8,9504.3,9135.2,8602.2,8973.1,9255.8,9575.6,9935.9,10542.2,10139.5,9057.7,8551.5,8327.1,9643.9,9001.9,8742.7,8912.6,9237.4,9720.5,10069.2,10566.8,10494,9412.8,8483.4,8128.1,9371.5,9179,8604.2,8745.9,9154.5,9465.6,9593.3,10213.3,10080.3,8839.9,8370.5,8170.9,9395.3,8848.1,8727.1,8824,9271.7,9563.6,9910.5,10346.7,9968.8,8764.8,8227,8049.2,9297.7,8848.9,8430.2,8698.8],"z":[-1.303,0.418,-1.444,1.761,2.133,0.229,-1.198,-2.305,2.347,-0.992,-1.161,-0.24,0.393,-0.056,-0.012,2.668,-0.18,1.232,-2.074,-2.109,-0.528,0.222,-0.266,-0.626,-0.075,1.151,-0.573,1.896,-1.351,1.59,-0.397,0.059,-0.575,-0.393,-0.227,-0.19,-0.07,-0.404,-0.865,3.697,0.757,-1.292,-0.411,0.128,-0.018,-0.842,0.357,-0.203,-0.852,0.646,-0.603,1.609,0.948,-0.569,-0.596,-1.088,0.962,-0.738,-1.109,-0.368,0.568,0.16,-0.288,1.936,0.958,-0.919,0.64,-1.179,0.083,0.878,-1.025,1.014,-0.366,-0.17,1.425,-2.382,0.015,0.962,0.766,0.344,0.974,-1.281,0.965,0.903,0.715,0.664,-2.102,2.158,-1.232,2.154,-0.178,-0.839,0.196,-0.511,-0.423,-0.341,0.308,0.05,0.524,0.109,0.602,-0.817,-0.284,0.186,0.745,-1.123,0.458,0.089,0.424,0.432,0.52,-0.563,-0.818,-0.713,1.03,0.276,-0.18,-0.594,-0.542,0.392,0.173,0.123,1.966,-2.329,0.682,1.215,-0.32,-0.149,0.734,0.067,0.383,-0.25,-0.578,1.854,-1.178,-0.218,-0.374,-2.221,0.352,0.655,-1.891,0.442,0.248,0.46,-0.383,-0.597,-1.583,1.401,1.318,0.511,0.921,-0.281,0.158,0.307,0.289,1.025,-0.398,-0.462,0.906,-1.647,1.745,0.071,-0.629,-0.092,-0.535,0.499,-0.34,-0.401,-0.903,-0.014,-0.077,-0.356,1.014,-1.685,1.531,0.122,0.093,1.492,0.186,0.057,-0.499,-1.613,-0.101,-1.57,-0.795,-0.889,1.066,0.574,-0.034,-0.842,1.3,-1.313,0.785,0.542,0.679,-1.556,0.342,-0.388,0.672,1.262,-0.047,1.098,0.902,0.208,-0.715,-1.293,0.256,-1.32,-0.65,0.308,-0.666,0.73,0.772,-0.201,-0.242,-0.697,0.052,0.649,-0.271,-0.018,-0.059,-1.858,0.831,0.667,-0.231,-0.567,1.365,-0.583,0.063,0.075,0.85,-2.087,-0.183,0.797,-0.019,1.508,-2.311,1.521,-0.168,-0.263,1.309,-0.014,0.022,0.427,-0.178,-2.428,-1.017,0.948,1.115,-0.885,-0.382,0.376,-0.003,-1.698,0.955,-0.032,-1.392,1.078,0.169,0.803,-1.588,2.574,-0.724,0.675,-0.149,-0.027,-0.446,-1.898,-1.115,0.557,0.335,0.988,-0.839,0.305,0.585],"Extremwert":["Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Ja","Nein","Ja","Ja","Ja","Ja","Ja","Ja","Ja"]},"columns":[{"id":"Jahr","name":"Jahr","type":"numeric"},{"id":"Monat","name":"Monat","type":"character"},{"id":"Milchmenge [t/d]","name":"Milchmenge [t/d]","type":"numeric"},{"id":"z","name":"z","type":"numeric"},{"id":"Extremwert","name":"Extremwert","type":"character"}],"dataKey":"aa5b03a7300cfe7e8b4e048e16c6626b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Die detaillierte Analyse und Bewertung der Milchproduktionsdaten, einschliesslich der identifizierten Schockzustände über verschiedene Zeiträume hinweg, ist in der nachstehenden Tabelle dargestellt. Bei dieser umfassenden Untersuchung konnten Schockzustände in unterschiedlichen Jahren festgestellt werden, die signifikante Auswirkungen auf die Qualität und Quantität der Milchproduktion hatten. Ein besonders hervorzuhebender Zeitpunkt ist der Spätsommer des Jahres 2002. In diesem Zeitraum wurde die Schweiz von einer aussergewöhnlich intensiven Hitzewelle heimgesucht. Die ungewöhnlich hohen Temperaturen hatten einen direkten und erheblichen Einfluss auf die Milchwirtschaft des Landes. Die extremen Wetterbedingungen führten zu einer signifikanten Beeinträchtigung der physiologischen Zustände der Milchkühe, was wiederum eine merkliche Reduktion in der Milchproduktion zur Folge hatte. Dieser Zeitraum dient als exemplarisches Beispiel für die Vulnerabilität der Milchwirtschaft gegenüber klimatischen Extremereignissen und unterstreicht die Notwendigkeit adaptiver Strategien zur Sicherstellung der Stabilität und Nachhaltigkeit der Milchproduktion unter sich verändernden Umweltbedingungen.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heat.webp" class="img-fluid figure-img"></p>
+<figcaption>Badegäste hatten Freude am Hitzesommer 2002, Kühe allerdings weniger. Die optimale Temperatur für die Milchproduktion liegt bei 10 °C – wenn es zu heiss wird, leidet die Leistung.</figcaption>
+</figure>
+</div>
+
+
 </section>
 </section>
 
